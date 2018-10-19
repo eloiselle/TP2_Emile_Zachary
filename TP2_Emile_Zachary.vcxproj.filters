@@ -13,10 +13,36 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Maps">
+      <UniqueIdentifier>{4dced9d7-9a82-43da-9888-05e7b6243f8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="maps\Labyrinthe0.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe1.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe2.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe2v67Col.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe3.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe4.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe5.txt">
+      <Filter>Maps</Filter>
+    </Text>
   </ItemGroup>
 </Project>

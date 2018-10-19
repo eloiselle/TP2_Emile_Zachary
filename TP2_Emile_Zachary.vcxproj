@@ -119,6 +119,15 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="maps\Labyrinthe0.txt" />
+    <Text Include="maps\Labyrinthe1.txt" />
+    <Text Include="maps\Labyrinthe2.txt" />
+    <Text Include="maps\Labyrinthe2v67Col.txt" />
+    <Text Include="maps\Labyrinthe3.txt" />
+    <Text Include="maps\Labyrinthe4.txt" />
+    <Text Include="maps\Labyrinthe5.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
