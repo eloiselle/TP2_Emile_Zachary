@@ -5,7 +5,7 @@ Programme:	main.cpp
 But:		//
 */
 
-//#include "map.h"
+#include <map.h>
 #include <iostream>
 #include <stack>
 
