@@ -16,5 +16,7 @@ int main()
 
 	//Your code here...
 
+	cout << "test zac";
+
 	return 0;
 }
