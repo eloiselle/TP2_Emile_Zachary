@@ -45,4 +45,9 @@
       <Filter>Maps</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Tp2.doc">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
