@@ -131,6 +131,9 @@
   <ItemGroup>
     <None Include="Tp2.doc" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header_Files\map.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
