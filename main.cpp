@@ -5,20 +5,57 @@ Programme:	main.cpp
 But:		//
 */
 
-#include <map.h>
-#include <iostream>
+//SFML Librairies
+#include <SFML/Graphics.hpp>
+
+//Default Librairies
 #include <stack>
 
-using namespace std;
+//Custom Librairies
+//#include <labyrinthe.h>
+//#include <map.h>
+
+using namespace sf;
 
 int main()
 {
-	setlocale(LC_CTYPE, "fra");
+	RenderWindow window(VideoMode(200, 200), "SFML works!");
+	CircleShape shape(100.f);
+	shape.setFillColor(Color::Green);
 
-	//Your code here...
+	//Tant que la fenêtre est ouverte
+	while (window.isOpen())
+	{
+		//Déclare un événement
+		Event event;
 
-	cout << "test zac";
-	cout << "Hello, world!";
+		//Si un événement est déclanché
+		while (window.pollEvent(event))
+		{
+			//Pour l'événement
+			if (event.type == Event::Closed)
+				window.close();
+		}
+
+		//Séquence qui rafraîchi l'affichage
+		window.clear();
+		window.draw(shape);
+		window.display();
+	}
 
 	return 0;
 }
+
+//using namespace std;
+//
+//int main()
+//{
+//	setlocale(LC_CTYPE, "fra");
+//
+//	//Your code here...
+//
+//	cout << "test zac";
+//	cout << "Hello, world!";
+//
+//	return 0;
+//}

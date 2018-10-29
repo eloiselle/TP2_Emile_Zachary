@@ -49,9 +49,13 @@
     <None Include="Tp2.doc">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header_Files\map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header_Files\labyrinthe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
