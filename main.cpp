@@ -7,18 +7,36 @@ But:		//
 
 #include <map.h>
 #include <iostream>
+#include <fstream>
 #include <stack>
-
+#include <string>
 using namespace std;
 
 int main()
 {
 	setlocale(LC_CTYPE, "fra");
 
-	//Your code here...
+	string nom = "Maps/Labyrinthe2.txt";
+	ifstream fichier(nom, ios::in);
 
-	cout << "test zac";
-	cout << "Hello, world!";
+	if (fichier)  //Si l'ouverture fonctionne.
+	{
+		//LES 3 LIGNE EN DESOSUS SONT JUSTE POUR MONTRER QUE LE FICHER PEU ETRE LUT
+		//DECOMMENTE LA 4EME POUR VOIR OU JE SUIS RENDU AVEC MON ERREUR RESIZE.
+		string contenu;
+		getline(fichier, contenu);
+		cout << contenu;
+		//map<char> test(fichier, nom);
 
-	return 0;
+		fichier.close();
+	}
+	else //Si l'ouverture ne fonctionne pas.
+	{
+		cerr << "Impossible d'ouvrir le fichier !" << endl;
+	}
+
+	cout << "Hello, world!" << endl;
+
+	//Permet un arret avant la fin pour voir un apercu de la console.
+	cout << endl; system("pause"); return 0;
 }

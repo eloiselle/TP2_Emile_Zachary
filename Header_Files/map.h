@@ -1,7 +1,7 @@
 /*	Auteur		: Zachary Cockburn
 	Date		: 10/10/18
 	Programme	: map.h
-	But			: ...*/
+	But			: Une matrice generique en 2 dimensions et dynamique.*/
 #pragma once
 #pragma warning(disable : 4996)  //Pour ne pas d'avoir d'erreurs avec strcpy
 #include <iostream>
@@ -18,9 +18,11 @@ private:
 		_nbCol;		//nombre de colonne pour la matrice
 public:
 	//Constructeurs et destructeur.
-	map();
-	map(const char* name, int line, int col);
+	map(istream & file, string name);
+	//map(const char* name, int line, int col);
 	~map();
+
+	void init(istream & file);
 
 	//Methodes pour clear.
 	void clear();						//Fait un menage de printemps de la map
@@ -33,7 +35,7 @@ public:
 
 	//Methodes pour at() et l'operateur [].
 	TYPE& at(int posI, int posJ) const;	//retourne une référence à l'ele à la pos i,j pour accéder ou modifier
-	TYPE& operator[](int line);			//Operateur []
+	TYPE* operator[](int line);			//Operateur []
 
 	//Methodes pour modifier ou obtenir le nom.
 	const char* getName()const; 	  	//retourne le nom de la map
@@ -46,13 +48,15 @@ public:
 
 //Constructeur
 template <class TYPE>
-map<TYPE>::map()
+map<TYPE>::map(istream & file, string name)
 {
 	_map = nullptr;
-	_name = nullptr;
 	_nbLine = _nbCol = 0;
+
+	init(file);
 }
 
+/*
 //Constructeur avec parametres
 template <class TYPE>
 map<TYPE>::map(const char* name, int line, int col)
@@ -79,23 +83,32 @@ map<TYPE>::map(const char* name, int line, int col)
 		}
 	}
 }
+*/
 
 //Deconstructeur
 template <class TYPE>
 map<TYPE>::~map()
 {
-	_map = nullptr;
-	_name = nullptr;
+	clear();
+	clearName();
 	_nbLine = _nbCol = 0;
+}
+
+// Initialise le vecteur 2D contenant les valeurs des tuiles de la carte
+template <class TYPE>
+void map<TYPE>::init(istream & file) {
+	assert(!file.fail());
+	char z; // Virgule à ignorer
+
+	file >> _nbLine >> z >> _nbCol;
+	resize(_nbLine, _nbCol);
+	read(file);
 }
 
 //Fait un menage de printemps de la map
 template <class TYPE>
 void map<TYPE>::clear()
 {
-	delete[]_name;
-	_name = nullptr;
-
 	for (int i = 0; i < _nbLine; i++)
 	{
 		delete[] * (_map + i);
@@ -170,7 +183,7 @@ TYPE& map<TYPE>::at(int posI, int posJ) const
 
 //Operateur []
 template <class TYPE>
-TYPE& map<TYPE>::operator[](int line)
+TYPE* map<TYPE>::operator[](int line)
 {
 	assert(line >= 0 && line < _nbLine);
 	return *(_map + line);
@@ -210,6 +223,7 @@ void map<TYPE>::print(ostream& sortie)const
 		{
 			sortie << *(*(_map + i) + j);
 		}
+		sortie << endl;
 	}
 }
 
@@ -217,6 +231,13 @@ void map<TYPE>::print(ostream& sortie)const
 template <class TYPE>
 void map<TYPE>::read(istream& entree)
 {
+	for (int i = 0; i < _nbLine; i++)
+	{
+		for (int j = 0; j < _nbCol; j++)
+		{
+			entree >> *(*(_map + i) + j);
+		}
+	}
 }
 
 //Affiche le contenu du vecteur avec l’opérateur <<
@@ -231,6 +252,6 @@ ostream& operator<<(ostream& sortie, const map<TYPE> &x)
 template <class TYPE>
 istream& operator>>(istream& entree, map<TYPE> &x)
 {
-	x >> entree;
+	x.read(entree);
 	return x;
 }
