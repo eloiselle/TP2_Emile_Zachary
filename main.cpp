@@ -1,9 +1,10 @@
-/*
-Auteur:		Émile Loiselle
-Date:		//
-Programme:	main.cpp
-But:		//
-*/
+/*==================================================================
+	Auteur		: Émile Loiselle et Zachary Cockburn
+	Date		: 29 octobre 2018
+	Programme	: main.cpp
+	But			: Gère les opérations et les comparaisons entre la
+				  carte du labyrinthe et le robot.
+==================================================================*/
 
 //SFML Librairies
 #include <SFML/Graphics.hpp>
@@ -12,34 +13,36 @@ But:		//
 #include <stack>
 
 //Custom Librairies
-//#include <labyrinthe.h>
-//#include <map.h>
+#include <labyrinthe.h>
+#include <map.h>
 
-using namespace sf;
+using namespace std;
 
 int main()
 {
-	RenderWindow window(VideoMode(200, 200), "SFML works!");
-	CircleShape shape(100.f);
-	shape.setFillColor(Color::Green);
+	//Le labyrinthe actuel
+	labyrinthe labActif;
+
+	//Crée une fenêtre
+	sf::RenderWindow window(sf::VideoMode(640, 480), "TP2 - Labyrinthe");
 
 	//Tant que la fenêtre est ouverte
 	while (window.isOpen())
 	{
 		//Déclare un événement
-		Event event;
+		sf::Event event;
 
 		//Si un événement est déclanché
 		while (window.pollEvent(event))
 		{
 			//Pour l'événement
-			if (event.type == Event::Closed)
+			if (event.type == sf::Event::Closed)
 				window.close();
 		}
 
 		//Séquence qui rafraîchi l'affichage
 		window.clear();
-		window.draw(shape);
+		//window.draw(shape);
 		window.display();
 	}
 

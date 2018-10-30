@@ -3,9 +3,10 @@
 	Programme	: map.h
 	But			: ...*/
 #pragma once
-#pragma warning(disable : 4996)  //Pour ne pas d'avoir d'erreurs avec strcpy
+
 #include <iostream>
 #include <assert.h>
+
 using namespace std;
 
 template <class TYPE>
@@ -27,8 +28,12 @@ public:
 	void clearName();					//Efface le nom actuel de la map
 
 	//Getteurs et setteurs.
+	const char* getName()const; 	  	//retourne le nom de la map
+	void setName(const char* name);  	//modifie le nom de la map
+
 	int nbLine()const; 					//retourne le nb de ligne
 	int nbCol()const; 					//retourne le nb de colonne
+
 	void resize(int nbLine, int nbCol);	//resize la matrice avec nouv dims
 
 	//Methodes pour at() et l'operateur [].
@@ -36,8 +41,6 @@ public:
 	TYPE& operator[](int line);			//Operateur []
 
 	//Methodes pour modifier ou obtenir le nom.
-	const char* getName()const; 	  	//retourne le nom de la map
-	void setName(const char* name);  	//modifie le nom de la map
 
 	//Methodes pour modifier ou obtenir la map.
 	void print(ostream& sortie)const;  	//print la matrice (sans le nom)
