@@ -25,7 +25,7 @@ int main()
 	labyrinthe labActif;
 
 	//Crée une fenêtre
-	sf::RenderWindow window(sf::VideoMode(640, 480), "TP2 - Labyrinthe");
+	sf::RenderWindow window(sf::VideoMode(640, 480), "Labyrinthe");
 
 	//Tant que la fenêtre est ouverte
 	while (window.isOpen())
