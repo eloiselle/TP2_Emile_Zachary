@@ -98,7 +98,6 @@ map<TYPE>::~map()
 template <class TYPE>
 void map<TYPE>::init(istream & file) {
 	assert(!file.fail());
-	//char z; // Virgule à ignorer
 	int newNbLine, newNbCol;
 
 	file >> newNbLine >> newNbCol;

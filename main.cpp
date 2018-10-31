@@ -21,12 +21,11 @@ int main()
 
 	if (fichier)  //Si l'ouverture fonctionne.
 	{
-		/*string contenu;
-		getline(fichier, contenu);
-		cout << contenu;*/
 		map<char> mapLabyrinthe(fichier, nom);
 
 		fichier.close();
+
+		cout << mapLabyrinthe;
 	}
 	else //Si l'ouverture ne fonctionne pas.
 	{
