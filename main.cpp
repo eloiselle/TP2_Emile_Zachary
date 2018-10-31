@@ -8,6 +8,7 @@
 
 //SFML Librairies
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 //Default Librairies
 #include <stack>
@@ -48,17 +49,3 @@ int main()
 
 	return 0;
 }
-
-//using namespace std;
-//
-//int main()
-//{
-//	setlocale(LC_CTYPE, "fra");
-//
-//	//Your code here...
-//
-//	cout << "test zac";
-//	cout << "Hello, world!";
-//
-//	return 0;
-//}

@@ -12,9 +12,6 @@
 
 #pragma once
 #include <map.h>
-#include <iostream>
-
-using namespace std;
 
 //================================
 //			Déclarations
@@ -25,7 +22,7 @@ class labyrinthe
 private:
 
 	//Contient les murs d'une map
-	map<TYPE> _map;
+	customMap<char> _mapLab;
 
 	//Dimensions
 	int _nbCol;
@@ -39,7 +36,7 @@ public:
 
 	//Constructeurs et destructeurs
 	labyrinthe();
-	labyrinthe(map<char> m);
+	labyrinthe(customMap<char> m);
 	~labyrinthe();
 
 	//Vérifications
@@ -60,7 +57,7 @@ labyrinthe::labyrinthe()
 	clear();
 }
 
-labyrinthe::labyrinthe(map<char> m)
+labyrinthe::labyrinthe(customMap<char> m)
 {
 }
 
@@ -85,7 +82,7 @@ void labyrinthe::clear()
 	_nbLin = 0;
 	_posDepart = -1;
 	_posArrivee = -1;
-	_map.clear();
+	_mapLab.clear();
 }
 
 void labyrinthe::print() const

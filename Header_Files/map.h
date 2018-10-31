@@ -1,16 +1,25 @@
-/*	Auteur		: Zachary Cockburn
-	Date		: 10/10/18
+/*==================================================================
+	Auteur		: Émile Loiselle et Zachary Cockburn
+	Date		: 31 octobre 2018
 	Programme	: map.h
-	But			: ...*/
-#pragma once
+	But			: Une matrice dynamique en 2 dimensions.
+==================================================================*/
 
+//================================
+//	Instructions pré-processeur
+//================================
+
+#pragma once
 #include <iostream>
 #include <assert.h>
-
 using namespace std;
 
+//================================
+//			Déclarations
+//================================
+
 template <class TYPE>
-class map
+class customMap
 {
 private:
 	char *_name;	//pointeur sur le nom de la map
@@ -19,86 +28,81 @@ private:
 		_nbCol;		//nombre de colonne pour la matrice
 public:
 	//Constructeurs et destructeur.
-	map();
-	map(const char* name, int line, int col);
-	~map();
+	customMap(istream & file, string name);
+	customMap();
+	//map(const char* name, int line, int col);
+	~customMap();
+
+	void init(istream & file);
 
 	//Methodes pour clear.
 	void clear();						//Fait un menage de printemps de la map
 	void clearName();					//Efface le nom actuel de la map
 
 	//Getteurs et setteurs.
-	const char* getName()const; 	  	//retourne le nom de la map
-	void setName(const char* name);  	//modifie le nom de la map
-
 	int nbLine()const; 					//retourne le nb de ligne
 	int nbCol()const; 					//retourne le nb de colonne
-
 	void resize(int nbLine, int nbCol);	//resize la matrice avec nouv dims
 
 	//Methodes pour at() et l'operateur [].
 	TYPE& at(int posI, int posJ) const;	//retourne une référence à l'ele à la pos i,j pour accéder ou modifier
-	TYPE& operator[](int line);			//Operateur []
+	TYPE* operator[](int line);			//Operateur []
 
 	//Methodes pour modifier ou obtenir le nom.
+	const char* getName()const; 	  	//retourne le nom de la map
+	void setName(const char* name);  	//modifie le nom de la map
 
 	//Methodes pour modifier ou obtenir la map.
 	void print(ostream& sortie)const;  	//print la matrice (sans le nom)
 	void read(istream& entree);			//lit la matrice de la map ds le flux
 };
 
-//Constructeur
+//================================
+//			Définitions
+//================================
+
+//Constructeur sans paramètres
 template <class TYPE>
-map<TYPE>::map()
+customMap<TYPE>::customMap()
 {
 	_map = nullptr;
-	_name = nullptr;
 	_nbLine = _nbCol = 0;
 }
 
-//Constructeur avec parametres
+//Constructeur avec 2 paramètres
 template <class TYPE>
-map<TYPE>::map(const char* name, int line, int col)
+customMap<TYPE>::customMap(istream & file, string name)
 {
-	assert(line >= 0 && col >= 0);
 	_map = nullptr;
-	_name = nullptr;
+	_nbLine = _nbCol = 0;
 
-	if (strlen(name) > 0)
-	{
-		_name = new char[strlen(name) + 1];
-		strcpy(_name, name);
-	}
-
-	_nbLine = line;
-	_nbCol = col;
-
-	if (line > 0 && col > 0)
-	{
-		_map = new TYPE *[_nbLine];
-		for (int i = 0; i < _nbLine; i++)
-		{
-			*(_map + i) = new TYPE[_nbCol];
-		}
-	}
+	init(file);
 }
 
-//Deconstructeur
+//Destructeur
 template <class TYPE>
-map<TYPE>::~map()
+customMap<TYPE>::~customMap()
 {
-	_map = nullptr;
-	_name = nullptr;
+	clear();
+	clearName();
 	_nbLine = _nbCol = 0;
+}
+
+//Initialise le vecteur 2D contenant les valeurs des tuiles de la carte
+template <class TYPE>
+void customMap<TYPE>::init(istream & file) {
+	assert(!file.fail());
+	int newNbLine, newNbCol;
+
+	file >> newNbLine >> newNbCol;
+	resize(newNbLine, newNbCol);
+	read(file);
 }
 
 //Fait un menage de printemps de la map
 template <class TYPE>
-void map<TYPE>::clear()
+void customMap<TYPE>::clear()
 {
-	delete[]_name;
-	_name = nullptr;
-
 	for (int i = 0; i < _nbLine; i++)
 	{
 		delete[] * (_map + i);
@@ -110,9 +114,9 @@ void map<TYPE>::clear()
 	_nbCol = 0;
 }
 
-//Efface le nom actuel de la map.
+//Efface le nom
 template <class TYPE>
-void map<TYPE>::clearName()
+void customMap<TYPE>::clearName()
 {
 	delete[]_name;
 	_name = nullptr;
@@ -120,21 +124,21 @@ void map<TYPE>::clearName()
 
 //Retourne le nb de ligne
 template <class TYPE>
-int map<TYPE>::nbLine()const
+int customMap<TYPE>::nbLine()const
 {
 	return _nbLine;
 }
 
 //Retourne le nb de colonne
 template <class TYPE>
-int map<TYPE>::nbCol()const
+int customMap<TYPE>::nbCol()const
 {
 	return _nbCol;
 }
 
-//Resize la matrice avec nouv dims
+//Resize la matrice avec des nouvelles dimensions
 template <class TYPE>
-void map<TYPE>::resize(int nbLine, int nbCol)
+void customMap<TYPE>::resize(int nbLine, int nbCol)
 {
 	assert(nbLine >= 0 && nbCol >= 0);
 	if (nbLine == 0 || nbCol == 0)
@@ -149,9 +153,9 @@ void map<TYPE>::resize(int nbLine, int nbCol)
 		*(newMap + i) = new TYPE[nbCol];
 	}
 
-	for (int i = 0; i < _nbLine && i < nbLine; i++)
+	for (int i = 0; i < nbLine && i < _nbLine; i++)
 	{
-		for (int j = 0; j < _nbCol && j < nbCol; j++)
+		for (int j = 0; j < nbCol && j < _nbCol; j++)
 		{
 			*(*(newMap + i) + j) = *(*(_map + i) + j);
 		}
@@ -163,17 +167,17 @@ void map<TYPE>::resize(int nbLine, int nbCol)
 	_nbLine = nbLine;
 }
 
-//Retourne une référence à l'ele à la pos i,j pour accéder ou modifier
+//Retourne une référence de l'element à l'emplacement (i, j)
 template <class TYPE>
-TYPE& map<TYPE>::at(int posI, int posJ) const
+TYPE& customMap<TYPE>::at(int posI, int posJ) const
 {
-	assert(posI >= 0 && posJ >= 0);
+	assert(posI >= 0 && posJ >= 0 && posI < _nbLine && posJ < _nbCol);
 	return *(*(_map + posI) + posJ);
 }
 
 //Operateur []
 template <class TYPE>
-TYPE& map<TYPE>::operator[](int line)
+TYPE* customMap<TYPE>::operator[](int line)
 {
 	assert(line >= 0 && line < _nbLine);
 	return *(_map + line);
@@ -181,7 +185,7 @@ TYPE& map<TYPE>::operator[](int line)
 
 //Retourne le nom de la map
 template <class TYPE>
-const char* map<TYPE>::getName()const
+const char* customMap<TYPE>::getName()const
 {
 	if (_name == nullptr)
 	{
@@ -192,7 +196,7 @@ const char* map<TYPE>::getName()const
 
 //Change le nom de la map
 template <class TYPE>
-void map<TYPE>::setName(const char* name)
+void customMap<TYPE>::setName(const char* name)
 {
 	clearName();
 
@@ -205,7 +209,7 @@ void map<TYPE>::setName(const char* name)
 
 //Print la matrice (sans le nom)
 template <class TYPE>
-void map<TYPE>::print(ostream& sortie)const
+void customMap<TYPE>::print(ostream& sortie)const
 {
 	for (int i = 0; i < _nbLine; i++)
 	{
@@ -213,18 +217,26 @@ void map<TYPE>::print(ostream& sortie)const
 		{
 			sortie << *(*(_map + i) + j);
 		}
+		sortie << endl;
 	}
 }
 
 //Lit la matrice de la map ds le flux
 template <class TYPE>
-void map<TYPE>::read(istream& entree)
+void customMap<TYPE>::read(istream& entree)
 {
+	for (int i = 0; i < _nbLine; i++)
+	{
+		for (int j = 0; j < _nbCol; j++)
+		{
+			entree >> *(*(_map + i) + j);
+		}
+	}
 }
 
 //Affiche le contenu du vecteur avec l’opérateur <<
 template <class TYPE>
-ostream& operator<<(ostream& sortie, const map<TYPE> &x)
+ostream& operator<<(ostream& sortie, const customMap<TYPE> &x)
 {
 	x.print(sortie);
 	return sortie;
@@ -232,8 +244,8 @@ ostream& operator<<(ostream& sortie, const map<TYPE> &x)
 
 //Prend le contenu du vecteur avec l’opérateur >>
 template <class TYPE>
-istream& operator>>(istream& entree, map<TYPE> &x)
+istream& operator>>(istream& entree, customMap<TYPE> &x)
 {
-	x >> entree;
+	x.read(entree);
 	return x;
 }
