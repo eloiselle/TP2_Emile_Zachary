@@ -7,10 +7,11 @@
 ==================================================================*/
 
 //SFML Librairies
-#include <SFML/Graphics.hpp>
-#include <iostream>
+#include <SFML/Graphics.hpp>=
 
 //Default Librairies
+#include <iostream>
+#include <fstream>
 #include <stack>
 
 //Custom Librairies
@@ -26,6 +27,22 @@ int main()
 
 	//Crée une fenêtre
 	sf::RenderWindow window(sf::VideoMode(640, 480), "Labyrinthe");
+
+	string nom = "Maps/Labyrinthe2.txt";
+	ifstream fichier(nom);
+
+	if (fichier)  //Si l'ouverture fonctionne.
+	{
+		customMap<char> mapLabyrinthe(fichier, nom);
+
+		fichier.close();
+
+		cout << mapLabyrinthe;
+	}
+	else //Si l'ouverture ne fonctionne pas.
+	{
+		cout << "Impossible d'ouvrir le fichier !" << endl;
+	}
 
 	//Tant que la fenêtre est ouverte
 	while (window.isOpen())
