@@ -40,8 +40,8 @@ public:
 	void clearName();					//Efface le nom actuel de la map
 
 	//Getteurs et setteurs.
-	int nbLine()const; 					//retourne le nb de ligne
-	int nbCol()const; 					//retourne le nb de colonne
+	int getNbLine()const; 					//retourne le nb de ligne
+	int getNbCol()const; 					//retourne le nb de colonne
 	void resize(int nbLine, int nbCol);	//resize la matrice avec nouv dims
 
 	//Methodes pour at() et l'operateur [].
@@ -124,14 +124,14 @@ void customMap<TYPE>::clearName()
 
 //Retourne le nb de ligne
 template <class TYPE>
-int customMap<TYPE>::nbLine()const
+int customMap<TYPE>::getNbLine()const
 {
 	return _nbLine;
 }
 
 //Retourne le nb de colonne
 template <class TYPE>
-int customMap<TYPE>::nbCol()const
+int customMap<TYPE>::getNbCol()const
 {
 	return _nbCol;
 }

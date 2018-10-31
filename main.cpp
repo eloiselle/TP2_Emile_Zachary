@@ -29,9 +29,6 @@ int main()
 	//Le labyrinthe actuel
 	labyrinthe labActif;
 
-	//Crée une fenêtre
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "Labyrinthe");
-
 	//Charge les textures du jeu
 	sf::Texture textureMap;
 	textureMap.loadFromFile("images/map_spriteSheet.png");
@@ -47,15 +44,16 @@ int main()
 	if (fichier)  //Si l'ouverture fonctionne.
 	{
 		mapLabyrinthe.init(fichier);
-
 		fichier.close();
-
 		cout << mapLabyrinthe;
 	}
 	else //Si l'ouverture ne fonctionne pas.
 	{
 		cout << "Impossible d'ouvrir le fichier !" << endl;
 	}
+
+	//Crée une fenêtre
+	sf::RenderWindow window(sf::VideoMode(mapLabyrinthe.getNbCol() * 32, mapLabyrinthe.getNbLine() * 32), "Labyrinthe");
 
 	//================================
 	//		Input utilisateur
@@ -70,7 +68,7 @@ int main()
 		//Si un événement est déclanché
 		while (window.pollEvent(event))
 		{
-			//Pour l'événement
+			//Pour l'événement fermeture de fenêtre ( le X )
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
@@ -83,9 +81,9 @@ int main()
 		window.clear();
 
 		//Pour chaques cases
-		for (int i = 0; i < 16; i++)
+		for (int i = 0; i < mapLabyrinthe.getNbLine(); i++)
 		{
-			for (int j = 0; j < 55; j++)
+			for (int j = 0; j < mapLabyrinthe.getNbCol(); j++)
 			{
 				//Emplacement de la fenêtre qui va être modifié
 				spriteMap.setPosition(j * 32, i * 32);
@@ -108,7 +106,7 @@ int main()
 			}
 		}
 
-		//Affiche les modifications
+		//Rafraîchit l'écran avec les nouvelles modifications
 		window.display();
 	}
 
