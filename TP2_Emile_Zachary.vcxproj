@@ -139,6 +139,9 @@
     <ClInclude Include="Header_Files\labyrinthe.h" />
     <ClInclude Include="Header_Files\map.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\map_spriteSheet.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\sfml_network.redist.2.5.1\build\native\sfml_network.redist.targets" Condition="Exists('packages\sfml_network.redist.2.5.1\build\native\sfml_network.redist.targets')" />

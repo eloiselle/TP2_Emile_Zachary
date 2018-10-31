@@ -28,7 +28,7 @@ private:
 		_nbCol;		//nombre de colonne pour la matrice
 public:
 	//Constructeurs et destructeur.
-	customMap(istream & file, string name);
+	customMap(istream & file);
 	customMap();
 	//map(const char* name, int line, int col);
 	~customMap();
@@ -71,7 +71,7 @@ customMap<TYPE>::customMap()
 
 //Constructeur avec 2 paramètres
 template <class TYPE>
-customMap<TYPE>::customMap(istream & file, string name)
+customMap<TYPE>::customMap(istream & file)
 {
 	_map = nullptr;
 	_nbLine = _nbCol = 0;

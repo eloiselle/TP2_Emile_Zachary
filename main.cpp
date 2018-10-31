@@ -7,7 +7,7 @@
 ==================================================================*/
 
 //SFML Librairies
-#include <SFML/Graphics.hpp>=
+#include <SFML/Graphics.hpp>
 
 //Default Librairies
 #include <iostream>
@@ -22,18 +22,31 @@ using namespace std;
 
 int main()
 {
+	//================================
+	//			Initialisations
+	//================================
+
 	//Le labyrinthe actuel
 	labyrinthe labActif;
 
 	//Crée une fenêtre
-	sf::RenderWindow window(sf::VideoMode(640, 480), "Labyrinthe");
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "Labyrinthe");
 
+	//Charge les textures du jeu
+	sf::Texture textureMap;
+	textureMap.loadFromFile("images/map_spriteSheet.png");
+
+	sf::IntRect rectSourceMap(0, 0, 32, 32);
+	sf::Sprite spriteMap(textureMap, rectSourceMap);
+
+	//Charge la carte
+	customMap<char> mapLabyrinthe;
 	string nom = "Maps/Labyrinthe2.txt";
 	ifstream fichier(nom);
 
 	if (fichier)  //Si l'ouverture fonctionne.
 	{
-		customMap<char> mapLabyrinthe(fichier, nom);
+		mapLabyrinthe.init(fichier);
 
 		fichier.close();
 
@@ -43,6 +56,10 @@ int main()
 	{
 		cout << "Impossible d'ouvrir le fichier !" << endl;
 	}
+
+	//================================
+	//		Input utilisateur
+	//================================
 
 	//Tant que la fenêtre est ouverte
 	while (window.isOpen())
@@ -58,9 +75,40 @@ int main()
 				window.close();
 		}
 
-		//Séquence qui rafraîchi l'affichage
+		//================================
+		//			Affichage
+		//================================
+
+		//Efface tout
 		window.clear();
-		//window.draw(shape);
+
+		//Pour chaques cases
+		for (int i = 0; i < 16; i++)
+		{
+			for (int j = 0; j < 55; j++)
+			{
+				//Emplacement de la fenêtre qui va être modifié
+				spriteMap.setPosition(j * 32, i * 32);
+
+				//Si c'est un mur dans la carte
+				if (mapLabyrinthe[i][j] == '1')
+					//Place la texture sur l'emplacement du mur
+					rectSourceMap.left = 32;
+
+				//Si c'est vide
+				else if (mapLabyrinthe[i][j] == '0')
+					//Place la texture sur l'emplacement du plancher
+					rectSourceMap.left = 0;
+
+				//Met à jour le sprite avec la nouvelle texture
+				spriteMap.setTextureRect(rectSourceMap);
+
+				//Affiche le sprite avec la nouvelle texture
+				window.draw(spriteMap);
+			}
+		}
+
+		//Affiche les modifications
 		window.display();
 	}
 
