@@ -29,11 +29,10 @@ int main()
 	}
 	else //Si l'ouverture ne fonctionne pas.
 	{
-		cerr << "Impossible d'ouvrir le fichier !" << endl;
+		cout << "Impossible d'ouvrir le fichier !" << endl;
 	}
 
-	cout << "Hello, world!" << endl;
-
 	//Permet un arret avant la fin pour voir un apercu de la console.
-	cout << endl; system("pause"); return 0;
+	cout << endl; system("pause");
+	return 0;
 }
