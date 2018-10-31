@@ -21,12 +21,10 @@ int main()
 
 	if (fichier)  //Si l'ouverture fonctionne.
 	{
-		//LES 3 LIGNE EN DESOSUS SONT JUSTE POUR MONTRER QUE LE FICHER PEU ETRE LUT
-		//DECOMMENTE LA 4EME POUR VOIR OU JE SUIS RENDU AVEC MON ERREUR RESIZE.
-		string contenu;
+		/*string contenu;
 		getline(fichier, contenu);
-		cout << contenu;
-		//map<char> test(fichier, nom);
+		cout << contenu;*/
+		map<char> mapLabyrinthe(fichier, nom);
 
 		fichier.close();
 	}

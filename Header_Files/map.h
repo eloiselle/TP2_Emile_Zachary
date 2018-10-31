@@ -98,10 +98,11 @@ map<TYPE>::~map()
 template <class TYPE>
 void map<TYPE>::init(istream & file) {
 	assert(!file.fail());
-	char z; // Virgule à ignorer
+	//char z; // Virgule à ignorer
+	int newNbLine, newNbCol;
 
-	file >> _nbLine >> z >> _nbCol;
-	resize(_nbLine, _nbCol);
+	file >> newNbLine >> newNbCol;
+	resize(newNbLine, newNbCol);
 	read(file);
 }
 
@@ -159,9 +160,9 @@ void map<TYPE>::resize(int nbLine, int nbCol)
 		*(newMap + i) = new TYPE[nbCol];
 	}
 
-	for (int i = 0; i < _nbLine && i < nbLine; i++)
+	for (int i = 0; i < nbLine && i < _nbLine; i++)
 	{
-		for (int j = 0; j < _nbCol && j < nbCol; j++)
+		for (int j = 0; j < nbCol && j < _nbCol; j++)
 		{
 			*(*(newMap + i) + j) = *(*(_map + i) + j);
 		}
