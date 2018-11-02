@@ -12,7 +12,9 @@
 
 #pragma once
 #include "map.h"
+#include "deplacement.h"
 #include <string>
+
 //================================
 //			Déclarations
 //================================
@@ -29,8 +31,8 @@ private:
 	//int _nbLin;
 
 	//Point d'entrée et sortie
-	int _posDepart[2];
-	int _posArrivee[2];
+	deplacement _posDepart;
+	deplacement _posArrivee;
 
 public:
 

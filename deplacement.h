@@ -10,6 +10,10 @@
 
 class deplacement
 {
+private:
+	int _x;
+	int _y;
+
 public:
 	deplacement();
 	~deplacement();
