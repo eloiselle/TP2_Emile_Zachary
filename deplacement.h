@@ -2,23 +2,23 @@
 	Auteur		: Émile Loiselle et Zachary Cockburn
 	Date		: 2 novembre 2018
 	Programme	: robot.h
-	But			: Entité qui se dplace dans un labyrinthe en essayant
-				  toutes les options possibles.
+	But			: Gère les informations sur les déplacements (emplacement,
+				  direction)
 ==================================================================*/
 
 #pragma once
 
-class robot
+class deplacement
 {
 public:
-	robot();
-	~robot();
+	deplacement();
+	~deplacement();
 };
 
-robot::robot()
+deplacement::deplacement()
 {
 }
 
-robot::~robot()
+deplacement::~deplacement()
 {
 }
