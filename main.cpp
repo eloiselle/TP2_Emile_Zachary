@@ -29,16 +29,17 @@ int main()
 	//Le labyrinthe actuel
 	labyrinthe labActif;
 
-	//Charge les textures du jeu
+	//Charge les textures
 	sf::Texture textureMap;
 	textureMap.loadFromFile("images/map_spriteSheet.png");
 
+	//Créer les sprites
 	sf::IntRect rectSourceMap(0, 0, 32, 32);
 	sf::Sprite spriteMap(textureMap, rectSourceMap);
 
 	//Charge la carte
 	customMap<char> mapLabyrinthe;
-	string nom = "Maps/Labyrinthe2.txt";
+	string nom = "Maps/Labyrinthe4.txt";
 	ifstream fichier(nom);
 
 	if (fichier)  //Si l'ouverture fonctionne.
@@ -53,7 +54,10 @@ int main()
 	}
 
 	//Crée une fenêtre
-	sf::RenderWindow window(sf::VideoMode(mapLabyrinthe.getNbCol() * 32, mapLabyrinthe.getNbLine() * 32), "Labyrinthe");
+	sf::RenderWindow window(sf::VideoMode(
+		mapLabyrinthe.getNbCol() * 32,
+		mapLabyrinthe.getNbLine() * 32),
+		"Labyrinthe");
 
 	//================================
 	//		Input utilisateur
@@ -71,6 +75,14 @@ int main()
 			//Pour l'événement fermeture de fenêtre ( le X )
 			if (event.type == sf::Event::Closed)
 				window.close();
+
+			//Si on tente de resize l'écran
+			if (event.type == sf::Event::Resized)
+			{
+				//Rafraîchi la vue au nouvel écran
+				sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+				window.setView(sf::View(visibleArea));
+			}
 		}
 
 		//================================
@@ -110,5 +122,5 @@ int main()
 		window.display();
 	}
 
-	return 0;
+	return EXIT_SUCCESS;
 }
