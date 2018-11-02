@@ -16,6 +16,9 @@
     <Filter Include="Maps">
       <UniqueIdentifier>{4dced9d7-9a82-43da-9888-05e7b6243f8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Images">
+      <UniqueIdentifier>{237b88cd-6834-408b-bc45-9b5da1124a12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -49,10 +52,22 @@
     <None Include="Tp2.doc">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header_Files\map.h">
+    <ClInclude Include="robot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="labyrinthe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\map_spriteSheet.png">
+      <Filter>Images</Filter>
+    </Image>
   </ItemGroup>
 </Project>
