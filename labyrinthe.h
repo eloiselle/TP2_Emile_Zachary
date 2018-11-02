@@ -26,10 +26,6 @@ private:
 	//Contient les murs d'une map
 	customMap<char> _mapLab;
 
-	//Dimensions
-	//int _nbCol;
-	//int _nbLin;
-
 	//Point d'entrée et sortie
 	deplacement _posDepart;
 	deplacement _posArrivee;
