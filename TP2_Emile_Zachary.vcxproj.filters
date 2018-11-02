@@ -55,10 +55,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header_Files\map.h">
+    <ClInclude Include="robot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header_Files\labyrinthe.h">
+    <ClInclude Include="labyrinthe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -136,8 +136,9 @@
     <None Include="Tp2.doc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header_Files\labyrinthe.h" />
-    <ClInclude Include="Header_Files\map.h" />
+    <ClInclude Include="labyrinthe.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="robot.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="images\map_spriteSheet.png" />
