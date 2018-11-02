@@ -37,6 +37,10 @@ public:
 	labyrinthe(string nom);
 	~labyrinthe();
 
+	//Get positions
+	deplacement getPosDepart() const;
+	deplacement getPosArriver() const;
+
 	//Vérifications
 	bool canMove() const;
 	bool arrived() const;
@@ -77,6 +81,16 @@ labyrinthe::labyrinthe(string nom)
 labyrinthe::~labyrinthe()
 {
 	clear();
+}
+
+deplacement labyrinthe::getPosDepart() const
+{
+	return _posDepart;
+}
+
+deplacement labyrinthe::getPosArriver() const
+{
+	return _posArrivee;
 }
 
 bool labyrinthe::canMove() const
