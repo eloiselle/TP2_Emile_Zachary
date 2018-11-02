@@ -1,5 +1,5 @@
 /*==================================================================
-	Auteur		: Émile Loiselle
+	Auteur		: Émile Loiselle et Zachary Cockburn
 	Date		: 29 octobre 2018
 	Programme	: labyrinthe.h
 	But			: Gère les opérations et les comparaisons entre la
@@ -100,12 +100,6 @@ inline customMap<char>& labyrinthe::getMap()
 
 void labyrinthe::clear()
 {
-	/*_nbCol = 0;
-	_nbLin = 0;*/
-	_posDepart[0] = -1;
-	_posDepart[1] = -1;
-	_posArrivee[0] = -1;
-	_posArrivee[1] = -1;
 	_mapLab.clear();
 }
 
