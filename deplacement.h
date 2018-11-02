@@ -20,13 +20,9 @@ public:
 	deplacement(int, int, char);
 	~deplacement();
 
-	int getX() const;
-	int getY() const;
-	char getOrientation() const;
-
-	void setX(int x);
-	void setY(int y);
-	void setOrientation(char orientation);
+	int& getX();
+	int& getY();
+	char& getOrientation();
 };
 
 deplacement::deplacement()
@@ -44,32 +40,17 @@ deplacement::~deplacement()
 {
 }
 
-int deplacement::getX() const
+int& deplacement::getX()
 {
 	return _x;
 }
 
-int deplacement::getY() const
+int& deplacement::getY()
 {
 	return _y;
 }
 
-char deplacement::getOrientation() const
+char& deplacement::getOrientation()
 {
 	return _orientation;
-}
-
-void deplacement::setX(int x)
-{
-	_x = x;
-}
-
-void deplacement::setY(int y)
-{
-	_y = y;
-}
-
-void deplacement::setOrientation(char orientation)
-{
-	_orientation = orientation;
 }

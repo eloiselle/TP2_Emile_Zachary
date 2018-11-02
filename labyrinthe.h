@@ -65,7 +65,7 @@ labyrinthe::labyrinthe(string nom)
 	if (fichier)  //Si l'ouverture fonctionne.
 	{
 		_mapLab.init(fichier);
-		fichier >> _posDepart[0] >> _posDepart[1] >> _posArrivee[0] >> _posArrivee[1];
+		fichier >> _posDepart.getX() >> _posDepart.getY() >> _posArrivee.getX() >> _posArrivee.getY();
 		fichier.close();
 	}
 	else //Si l'ouverture ne fonctionne pas.
