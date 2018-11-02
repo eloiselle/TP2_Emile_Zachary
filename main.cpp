@@ -87,13 +87,19 @@ int main()
 
 				//Si c'est un mur dans la carte
 				if (labActif.getMap()[i][j] == '1')
+				{
 					//Place la texture sur l'emplacement du mur
 					rectSourceMap.left = 32;
+					rectSourceMap.top = 0;
+				}
 
 				//Si c'est vide
 				else if (labActif.getMap()[i][j] == '0')
+				{
 					//Place la texture sur l'emplacement du plancher
 					rectSourceMap.left = 0;
+					rectSourceMap.top = 0;
+				}
 
 				//Met à jour le sprite avec la nouvelle texture
 				spriteMap.setTextureRect(rectSourceMap);
@@ -106,12 +112,14 @@ int main()
 		//Afficher icone de depart du labyrinthe
 		spriteMap.setPosition(labActif.getPosDepart().getY() * 32, labActif.getPosDepart().getX() * 32);
 		rectSourceMap.left = 96;
+		rectSourceMap.top = 0;
 		spriteMap.setTextureRect(rectSourceMap);
 		window.draw(spriteMap);
 
 		//Afficher icone d'arriver du labyrinthe
 		spriteMap.setPosition(labActif.getPosArriver().getY() * 32, labActif.getPosArriver().getX() * 32);
-		rectSourceMap.left = 64;
+		rectSourceMap.left = 0;
+		rectSourceMap.top = 32;
 		spriteMap.setTextureRect(rectSourceMap);
 		window.draw(spriteMap);
 
