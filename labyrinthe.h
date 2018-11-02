@@ -12,7 +12,7 @@
 
 #pragma once
 #include "map.h"
-
+#include <string>
 //================================
 //			Déclarations
 //================================
@@ -25,23 +25,26 @@ private:
 	customMap<char> _mapLab;
 
 	//Dimensions
-	int _nbCol;
-	int _nbLin;
+	//int _nbCol;
+	//int _nbLin;
 
 	//Point d'entrée et sortie
-	int _posDepart;
-	int _posArrivee;
+	int _posDepart[2];
+	int _posArrivee[2];
 
 public:
 
 	//Constructeurs et destructeurs
 	labyrinthe();
-	labyrinthe(customMap<char> m);
+	labyrinthe(string nom);
 	~labyrinthe();
 
 	//Vérifications
 	bool canMove() const;
 	bool arrived() const;
+
+	//Acces a l'objet Map
+	customMap<char>& getMap();
 
 	//Utilitaires
 	void clear();
@@ -57,8 +60,20 @@ labyrinthe::labyrinthe()
 	clear();
 }
 
-labyrinthe::labyrinthe(customMap<char> m)
+labyrinthe::labyrinthe(string nom)
 {
+	ifstream fichier(nom);
+
+	if (fichier)  //Si l'ouverture fonctionne.
+	{
+		_mapLab.init(fichier);
+		fichier >> _posDepart[0] >> _posDepart[1] >> _posArrivee[0] >> _posArrivee[1];
+		fichier.close();
+	}
+	else //Si l'ouverture ne fonctionne pas.
+	{
+		cout << "Impossible d'ouvrir le fichier !" << endl;
+	}
 }
 
 labyrinthe::~labyrinthe()
@@ -76,12 +91,19 @@ bool labyrinthe::arrived() const
 	return false;
 }
 
+inline customMap<char>& labyrinthe::getMap()
+{
+	return _mapLab;
+}
+
 void labyrinthe::clear()
 {
-	_nbCol = 0;
-	_nbLin = 0;
-	_posDepart = -1;
-	_posArrivee = -1;
+	/*_nbCol = 0;
+	_nbLin = 0;*/
+	_posDepart[0] = -1;
+	_posDepart[1] = -1;
+	_posArrivee[0] = -1;
+	_posArrivee[1] = -1;
 	_mapLab.clear();
 }
 

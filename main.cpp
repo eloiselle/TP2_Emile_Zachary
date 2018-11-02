@@ -28,7 +28,7 @@ int main()
 	//================================
 
 	//Le labyrinthe actuel
-	labyrinthe labActif;
+	labyrinthe labActif("Maps/Labyrinthe4.txt");
 
 	//Charge les textures
 	sf::Texture textureMap;
@@ -38,26 +38,10 @@ int main()
 	sf::IntRect rectSourceMap(0, 0, 32, 32);
 	sf::Sprite spriteMap(textureMap, rectSourceMap);
 
-	//Charge la carte
-	customMap<char> mapLabyrinthe;
-	string nom = "Maps/Labyrinthe4.txt";
-	ifstream fichier(nom);
-
-	if (fichier)  //Si l'ouverture fonctionne.
-	{
-		mapLabyrinthe.init(fichier);
-		fichier.close();
-		cout << mapLabyrinthe;
-	}
-	else //Si l'ouverture ne fonctionne pas.
-	{
-		cout << "Impossible d'ouvrir le fichier !" << endl;
-	}
-
 	//Crée une fenêtre
 	sf::RenderWindow window(sf::VideoMode(
-		mapLabyrinthe.getNbCol() * 32,
-		mapLabyrinthe.getNbLine() * 32),
+		labActif.getMap().getNbCol() * 32,
+		labActif.getMap().getNbLine() * 32),
 		"Labyrinthe");
 
 	//================================
@@ -94,20 +78,20 @@ int main()
 		window.clear();
 
 		//Pour chaques cases
-		for (int i = 0; i < mapLabyrinthe.getNbLine(); i++)
+		for (int i = 0; i < labActif.getMap().getNbLine(); i++)
 		{
-			for (int j = 0; j < mapLabyrinthe.getNbCol(); j++)
+			for (int j = 0; j < labActif.getMap().getNbCol(); j++)
 			{
 				//Emplacement de la fenêtre qui va être modifié
 				spriteMap.setPosition(j * 32, i * 32);
 
 				//Si c'est un mur dans la carte
-				if (mapLabyrinthe[i][j] == '1')
+				if (labActif.getMap()[i][j] == '1')
 					//Place la texture sur l'emplacement du mur
 					rectSourceMap.left = 32;
 
 				//Si c'est vide
-				else if (mapLabyrinthe[i][j] == '0')
+				else if (labActif.getMap()[i][j] == '0')
 					//Place la texture sur l'emplacement du plancher
 					rectSourceMap.left = 0;
 
