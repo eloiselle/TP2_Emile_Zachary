@@ -67,6 +67,9 @@
     <ClInclude Include="deplacement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="pile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="images\map_spriteSheet.png">

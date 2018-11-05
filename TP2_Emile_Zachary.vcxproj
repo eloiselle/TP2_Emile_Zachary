@@ -139,6 +139,7 @@
     <ClInclude Include="deplacement.h" />
     <ClInclude Include="labyrinthe.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="pile.h" />
     <ClInclude Include="robot.h" />
   </ItemGroup>
   <ItemGroup>
