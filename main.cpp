@@ -12,7 +12,6 @@
 //Default Librairies
 #include <iostream>
 #include <fstream>
-#include <stack>
 
 //Custom Librairies
 #include "labyrinthe.h"
