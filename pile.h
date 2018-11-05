@@ -122,7 +122,7 @@ bool pile<TYPE>::isEmpty() const
 template<class TYPE>
 void pile<TYPE>::clear()
 {
-	while (!empty())
+	while (!isEmpty())
 		pop();
 }
 

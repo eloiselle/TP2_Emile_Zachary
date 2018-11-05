@@ -17,11 +17,16 @@ public:
 	robot(deplacement& d);
 	~robot();
 private:
-	pile<deplacement> lol;
+	pile<deplacement> historique;
 };
 
 robot::robot()
 {
+}
+
+robot::robot(deplacement & d)
+{
+	historique.push(d);
 }
 
 robot::~robot()
