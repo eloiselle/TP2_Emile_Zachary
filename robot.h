@@ -14,6 +14,7 @@ class robot
 {
 public:
 	robot();
+	robot(deplacement& d);
 	~robot();
 private:
 	pile<deplacement> lol;

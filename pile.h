@@ -2,7 +2,8 @@
 	Auteur		: Émile Loiselle et Zachary Cockburn
 	Date		: 5 novembre 2018
 	Programme	: pile.h
-	But			: L'objet pile.
+	But			: Objet qui permet d'ajouter, enlever
+				  et modifier l'element du dessus d'une pile.
 ==================================================================*/
 #pragma once
 #include <assert.h>
