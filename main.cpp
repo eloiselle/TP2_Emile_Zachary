@@ -58,7 +58,7 @@ int main()
 		while (window.pollEvent(event))
 		{
 			//Pour l'événement fermeture de fenêtre ( le X )
-			if (event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				window.close();
 
 			//Si on tente de resize l'écran
