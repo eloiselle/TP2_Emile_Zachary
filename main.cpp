@@ -30,7 +30,7 @@ int main()
 	//================================
 
 	deplacement nextMove;							//PLanifie le prochain déplacement
-	labyrinthe labActif("Maps/Labyrinthe5.txt");	//Le labyrinthe actuel
+	labyrinthe labActif(cin);	//Le labyrinthe actuel
 	robot robActif(labActif.getPosDepart());		//Les déplacements du robot
 
 	//Charge les textures
@@ -178,6 +178,7 @@ int main()
 		spriteMap.setTextureRect(rectSourceMap);
 		window.draw(spriteMap);
 
+		//Affiche le robot
 		spriteMap.setPosition(robActif.top().y() * 32, robActif.top().x() * 32);
 		rectSourceMap.left = 7 * 32;
 		rectSourceMap.top = 0;
@@ -187,7 +188,7 @@ int main()
 		//Rafraîchit l'écran avec les nouvelles modifications
 		window.display();
 
-		sf::sleep(sf::milliseconds(50));
+		sf::sleep(sf::milliseconds(30));
 	}
 
 	return EXIT_SUCCESS;

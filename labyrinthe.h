@@ -39,7 +39,7 @@ public:
 
 	//Constructeurs et destructeurs
 	labyrinthe();
-	labyrinthe(string nom);
+	labyrinthe(istream& input, ostream& output);
 	~labyrinthe();
 
 	//Get positions
@@ -67,25 +67,26 @@ labyrinthe::labyrinthe()
 	clear();
 }
 
-labyrinthe::labyrinthe(string nom)
+labyrinthe::labyrinthe(istream& input, ostream& output)
 {
-	ifstream fichier(nom);
+	string inputText;
+	ifstream fichier;
 
-	if (fichier)  //Si l'ouverture fonctionne.
+	do
 	{
-		_mapLab.init(fichier);
-		fichier >> _posDepart.x() >> _posDepart.y()
-			>> _posArrivee.x() >> _posArrivee.y();
+		output << "Ey stu fa";
+		input >> inputText;
+		fichier.open(inputText);
+	} while (!fichier);
 
-		_posDepart.orientation() = 'N';
-		_posArrivee.orientation() = 'A';
+	_mapLab.init(fichier);
+	fichier >> _posDepart.x() >> _posDepart.y()
+		>> _posArrivee.x() >> _posArrivee.y();
 
-		fichier.close();
-	}
-	else //Si l'ouverture ne fonctionne pas.
-	{
-		cout << "Impossible d'ouvrir le fichier !" << endl;
-	}
+	_posDepart.orientation() = 'N';
+	_posArrivee.orientation() = 'A';
+
+	fichier.close();
 }
 
 labyrinthe::~labyrinthe()
