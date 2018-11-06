@@ -30,7 +30,7 @@ int main()
 	//================================
 
 	deplacement nextMove;							//PLanifie le prochain déplacement
-	labyrinthe labActif(cin);	//Le labyrinthe actuel
+	labyrinthe labActif(cin, cout);					//Le labyrinthe actuel
 	robot robActif(labActif.getPosDepart());		//Les déplacements du robot
 
 	//Charge les textures
