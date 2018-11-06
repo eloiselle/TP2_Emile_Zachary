@@ -153,12 +153,8 @@ void customMap<TYPE>::resize(int nbLine, int nbCol)
 		*(newMap + i) = new TYPE[nbCol];
 
 	for (int i = 0; i < nbLine && i < _nbLine; i++)
-	{
 		for (int j = 0; j < nbCol && j < _nbCol; j++)
-		{
 			*(*(newMap + i) + j) = *(*(_map + i) + j);
-		}
-	}
 
 	clear();
 	_map = newMap;
@@ -212,9 +208,8 @@ void customMap<TYPE>::print(ostream& sortie)const
 	for (int i = 0; i < _nbLine; i++)
 	{
 		for (int j = 0; j < _nbCol; j++)
-		{
 			sortie << *(*(_map + i) + j);
-		}
+
 		sortie << endl;
 	}
 }
@@ -224,12 +219,8 @@ template <class TYPE>
 void customMap<TYPE>::read(istream& entree)
 {
 	for (int i = 0; i < _nbLine; i++)
-	{
 		for (int j = 0; j < _nbCol; j++)
-		{
 			entree >> *(*(_map + i) + j);
-		}
-	}
 }
 
 //Affiche le contenu du vecteur avec l’opérateur <<

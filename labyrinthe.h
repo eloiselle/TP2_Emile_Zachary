@@ -88,7 +88,7 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 		fichier.open(inputText);
 
 		if (!fichier)
-			output << "Le fichier " << inputText << " n'a pas été trouvé." << endl;
+			output << "Le fichier '" << inputText << "' n'a pas été trouvé." << endl;
 
 		else
 			break;
