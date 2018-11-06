@@ -74,8 +74,12 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 
 	do
 	{
-		output << "Nom du fichier du labyrinthe : ";
+		output << "Nombre du fichier du labyrinthe : ";
 		getline(input, inputText);
+
+		inputText.insert(0, "maps/labyrinthe");
+		inputText.append(".txt");
+
 		fichier.open(inputText);
 	} while (!fichier);
 
