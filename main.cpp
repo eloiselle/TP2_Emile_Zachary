@@ -35,9 +35,6 @@ int main()
 	labyrinthe labActif(cin, cout);					//Le labyrinthe actuel
 	robot robActif(labActif.getPosDepart());		//Les déplacements du robot
 
-	labActif.getMap().print(cout);
-	labActif.print();
-
 	//Charge les textures
 	sf::Texture textureMap;
 	textureMap.loadFromFile("images/map_spriteSheet.png");
@@ -107,14 +104,6 @@ int main()
 				labActif.getMap().at(robActif.top().x(), robActif.top().y()) = '0';
 			}
 		}
-
-		//Si on est de retour au début
-		else if (robActif.top() == labActif.getPosDepart())
-			cout << "Aucune solution";
-
-		//Si on est à la fin
-		else
-			cout << "Success";
 
 		//================================
 		//			Affichage
@@ -195,6 +184,22 @@ int main()
 
 		//Vitesse a laquelle la solution du labyrinthe est executer
 		sf::sleep(sf::milliseconds(30));
+
+		//Si on est de retour au début
+		if (robActif.top() == labActif.getPosDepart())
+		{
+			cout << "Aucune solution" << endl;
+			system("pause");
+			break;
+		}
+
+		//Si on est à la fin
+		if (robActif.top() == labActif.getPosArriver())
+		{
+			cout << "Success" << endl;
+			system("pause");
+			break;
+		}
 	}
 
 	return EXIT_SUCCESS;
