@@ -44,16 +44,14 @@ public:
 	labyrinthe(istream& input, ostream& output);
 	~labyrinthe();
 
-	//Get positions
+	//Getteurs
 	deplacement getPosDepart() const;
 	deplacement getPosArriver() const;
+	customMap<char>& getMap();
 
 	//Vérifications
 	bool canMove(const deplacement& pos, deplacement& posToCheck) const;
 	bool arrived(const deplacement& pos) const;
-
-	//Acces a l'objet Map
-	customMap<char>& getMap();
 
 	//Utilitaires
 	void clear();
@@ -64,7 +62,9 @@ public:
 //			Définitions
 //================================
 
-//Constructeur sans parametre
+//	Constructeurs / Destructeur
+//================================
+
 labyrinthe::labyrinthe()
 {
 	clear();
@@ -77,7 +77,6 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 
 	do
 	{
-		//
 		output << "Nombre du fichier du labyrinthe : ";
 		getline(input, inputText);
 
@@ -99,10 +98,6 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 	fichier >> _posDepart.x() >> _posDepart.y()
 		>> _posArrivee.x() >> _posArrivee.y();
 
-	//Définie les orientations
-	_posDepart.orientation() = 'N';
-	_posArrivee.orientation() = 'A';
-
 	fichier.close();
 }
 
@@ -110,6 +105,9 @@ labyrinthe::~labyrinthe()
 {
 	clear();
 }
+
+//			Getteurs
+//================================
 
 deplacement labyrinthe::getPosDepart() const
 {
@@ -121,34 +119,42 @@ deplacement labyrinthe::getPosArriver() const
 	return _posArrivee;
 }
 
+customMap<char>& labyrinthe::getMap()
+{
+	return _mapLab;
+}
+
+//			Vérifications
+//================================
+
 //Vérifie si la case donnée est possible d'y bouger
 bool labyrinthe::canMove(const deplacement& pos, deplacement& posToCheck) const
 {
 	//Check nord
 	if (_mapLab.at(pos.x(), pos.y() - 1) == '0')
 	{
-		posToCheck.init(pos.x(), pos.y() - 1, 'N');
+		posToCheck.init(pos.x(), pos.y() - 1);
 		return true;
 	}
 
 	//Check est
 	if (_mapLab.at(pos.x() + 1, pos.y()) == '0')
 	{
-		posToCheck.init(pos.x() + 1, pos.y(), 'E');
+		posToCheck.init(pos.x() + 1, pos.y());
 		return true;
 	}
 
 	//Check sud
 	if (_mapLab.at(pos.x(), pos.y() + 1) == '0')
 	{
-		posToCheck.init(pos.x(), pos.y() + 1, 'S');
+		posToCheck.init(pos.x(), pos.y() + 1);
 		return true;
 	}
 
 	//Check ouest
 	if (_mapLab.at(pos.x() - 1, pos.y()) == '0')
 	{
-		posToCheck.init(pos.x() - 1, pos.y(), 'O');
+		posToCheck.init(pos.x() - 1, pos.y());
 		return true;
 	}
 
@@ -165,13 +171,9 @@ bool labyrinthe::arrived(const deplacement& pos) const
 	return true;
 }
 
-//Obtient l'objet map du labyrinthe
-customMap<char>& labyrinthe::getMap()
-{
-	return _mapLab;
-}
+//			Utilitaires
+//================================
 
-//Clear le labyrinthe
 void labyrinthe::clear()
 {
 	_mapLab.clear();
