@@ -124,7 +124,7 @@ int main()
 		if (labActif.getMap().getNbCol() * 32 > 1280 || labActif.getMap().getNbLine() * 32 > 720)
 		{
 			//Caméra suit le robot
-			MyView.setCenter(robActif.top().y() * 32, robActif.top().x() * 32);
+			MyView.setCenter(robActif.top().x() * 32, robActif.top().y() * 32);
 			window.setView(MyView);
 		}
 
