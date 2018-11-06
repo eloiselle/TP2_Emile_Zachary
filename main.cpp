@@ -79,6 +79,46 @@ int main()
 		}
 
 		//================================
+		//			Événements
+		//================================
+
+		//Si on n'est pas arrivés à la fin et qu'on est pas au départ ou qu'on a jamais bougé
+		if (!labActif.arrived(robActif.top()) &&
+			(robActif.top() != labActif.getPosDepart() || nextMove.x() == NULL))
+		{
+			//Vérifie si on peut bouger et où on peut bouger si oui
+			if (labActif.canMove(robActif.top(), nextMove))
+			{
+				//Place un 'V' ou on est
+				labActif.getMap().at(robActif.top().x(), robActif.top().y()) = 'V';
+
+				//Bouge vers le nouvel emplacement
+				robActif.push(nextMove);
+			}
+
+			//Si on ne peut pas bouger
+			else
+			{
+				//Place un 'V' où on était
+				labActif.getMap().at(robActif.top().x(), robActif.top().y()) = 'V';
+
+				//Recule d'une case
+				robActif.pop();
+
+				//Place la case actuelle d'un vide
+				labActif.getMap().at(robActif.top().x(), robActif.top().y()) = '0';
+			}
+		}
+
+		//Si on est de retour au début
+		else if (robActif.top() == labActif.getPosDepart())
+			cout << "Aucune solution";
+
+		//Si on est à la fin
+		else
+			cout << "Success";
+
+		//================================
 		//			Affichage
 		//================================
 
@@ -97,7 +137,7 @@ int main()
 				if (labActif.getMap()[i][j] == '1')
 				{
 					//Place la texture sur l'emplacement du mur
-					rectSourceMap.left = 32;
+					rectSourceMap.left = 1 * 32;
 					rectSourceMap.top = 0;
 				}
 
@@ -109,6 +149,12 @@ int main()
 					rectSourceMap.top = 0;
 				}
 
+				else if (labActif.getMap()[i][j] == 'V')
+				{
+					//Place la texture sur l'emplacement de la vitre
+					rectSourceMap.left = 6 * 32;
+					rectSourceMap.top = 0;
+				}
 				//Met à jour le sprite avec la nouvelle texture
 				spriteMap.setTextureRect(rectSourceMap);
 
@@ -131,23 +177,7 @@ int main()
 		spriteMap.setTextureRect(rectSourceMap);
 		window.draw(spriteMap);
 
-		if (!labActif.arrived(robActif.top()))
-		{
-			if (labActif.canMove(robActif.top(), nextMove))
-				robActif.push(nextMove);
-
-			else
-			{
-				labActif.getMap().at(robActif.top().x(), robActif.top().y()) = 'V';
-				robActif.pop();
-			}
-		}
-		else
-		{
-			cout << "SUCCESS";
-		}
-
-		spriteMap.setPosition(robActif.top().x() * 32, robActif.top().y() * 32);
+		spriteMap.setPosition(robActif.top().y() * 32, robActif.top().x() * 32);
 		rectSourceMap.left = 7 * 32;
 		rectSourceMap.top = 0;
 		spriteMap.setTextureRect(rectSourceMap);
@@ -156,20 +186,8 @@ int main()
 		//Rafraîchit l'écran avec les nouvelles modifications
 		window.display();
 
-		sf::sleep(sf::milliseconds(1000));
+		sf::sleep(sf::milliseconds(50));
 	}
 
 	return EXIT_SUCCESS;
 }
-
-//bool resoudre(robot robot, labyrinthe lab)
-//{
-//	if (robot.getPileDeplacement().top() == lab.getPosArriver())
-//	{
-//		return true;
-//	}
-//
-//	if (lab.getMap().at(robot.getPileDeplacement().top().x(), robot.getPileDeplacement().top().x()) == '0' && resoudre(robot()))
-//	{
-//	}
-//}

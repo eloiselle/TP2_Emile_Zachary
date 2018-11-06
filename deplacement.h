@@ -37,6 +37,7 @@ public:
 
 	const deplacement& operator=(const deplacement& d);		//Copie le contenu d'un déplacement vers une autre
 	bool operator==(const deplacement& s)const;				//Compare 2 déplacements, dans l'orientation
+	bool operator!=(const deplacement& s)const;				//Compare 2 déplacements, dans l'orientation
 };
 
 //================================
@@ -147,8 +148,11 @@ const deplacement & deplacement::operator=(const deplacement & d)
 //Compare 2 déplacements, sans l'orientation
 bool deplacement::operator==(const deplacement & p) const
 {
-	if (_x == p._x && _y == p._y)
-		return true;
+	return _x == p._x && _y == p._y;
+}
 
-	return false;
+//Compare 2 déplacements, sans l'orientation
+bool deplacement::operator!=(const deplacement & p) const
+{
+	return !(_x == p._x && _y == p._y);
 }
