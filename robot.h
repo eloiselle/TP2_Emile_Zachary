@@ -29,12 +29,15 @@ class robot
 private:
 
 	pile<deplacement> _pileDeplacement;
+	deplacement _nextMove;			//Planifie le prochain déplacement
 
 public:
 
-	robot();
-	robot(deplacement d);
-	~robot();
+	robot();					//Initialise sans paramètres
+	robot(deplacement d);		//Initialise avec 3 paramètres
+	~robot();					//Destruction
+
+	deplacement& nextMove();		//Getteur
 
 	const deplacement& top();
 	void push(const deplacement&);
@@ -61,6 +64,12 @@ robot::robot(deplacement d)
 robot::~robot()
 {
 	_pileDeplacement.clear();
+}
+
+//Obtient le deplacement _nextMove
+deplacement& robot::nextMove()
+{
+	return _nextMove;
 }
 
 //		Operations pile

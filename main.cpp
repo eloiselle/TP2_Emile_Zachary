@@ -32,7 +32,6 @@ int main()
 	//Permet les caractères spéciaux français
 	setlocale(LC_ALL, "fr_FR.UTF-8");
 
-	deplacement nextMove;							//PLanifie le prochain déplacement
 	labyrinthe labActif(cin, cout);					//Le labyrinthe actuel
 	robot robActif(labActif.getPosDepart());		//Les déplacements du robot
 
@@ -80,16 +79,16 @@ int main()
 
 		//Si on n'est pas arrivés à la fin et qu'on est pas au départ ou qu'on a jamais bougé
 		if (!labActif.arrived(robActif.top()) &&
-			(robActif.top() != labActif.getPosDepart() || nextMove.x() == NULL))
+			(robActif.top() != labActif.getPosDepart() || robActif.nextMove().x() == NULL))
 		{
 			//Vérifie si on peut bouger et où on peut bouger si oui
-			if (labActif.canMove(robActif.top(), nextMove))
+			if (labActif.canMove(robActif.top(), robActif.nextMove()))
 			{
 				//Place un 'V' ou on est
 				labActif.getMap().at(robActif.top().x(), robActif.top().y()) = 'V';
 
 				//Bouge vers le nouvel emplacement
-				robActif.push(nextMove);
+				robActif.push(robActif.nextMove());
 			}
 
 			//Si on ne peut pas bouger
