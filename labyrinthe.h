@@ -75,7 +75,7 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 	do
 	{
 		output << "Nom du fichier du labyrinthe : ";
-		input >> inputText;
+		getline(input, inputText);
 		fichier.open(inputText);
 	} while (!fichier);
 
