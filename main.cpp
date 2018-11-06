@@ -33,11 +33,12 @@ int main()
 	deplacement nextMove;
 
 	//Le labyrinthe actuel
-	labyrinthe labActif("Maps/Labyrinthe5.txt");
+	labyrinthe labActif("Maps/Labyrinthe1.txt");
 
 	//Les déplacements du robot
 	robot robActif(labActif.getPosDepart());
 
+	//Défini une caméra
 	sf::View MyView(sf::FloatRect(0.f, 0.f, 1280.f, 720.f));
 
 	//Charge les textures
@@ -48,8 +49,17 @@ int main()
 	sf::IntRect rectSourceMap(0, 0, 32, 32);
 	sf::Sprite spriteMap(textureMap, rectSourceMap);
 
-	//Crée une fenêtre
+	//Crée une fenêtre de la grandeur du puzzle
+	//sf::RenderWindow window(sf::VideoMode(
+		//labActif.getMap().getNbCol() * 32,
+		//labActif.getMap().getNbLine() * 32),
+		//"Labyrinthe");
+
+	//if (labActif.getMap().getNbCol() * 32 > 1280 || labActif.getMap().getNbLine() * 32 > 720)
+	//{
+		//Crée une fenêtre définie
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Labyrinthe");
+	//}
 
 	//================================
 	//		Input utilisateur
@@ -124,8 +134,13 @@ int main()
 		//Efface tout
 		window.clear();
 
-		MyView.setCenter(robActif.top().y(), robActif.top().x());
-		window.setView(MyView);
+		//Si la map est plus grande que l'écran
+		if (labActif.getMap().getNbCol() * 32 > 1280 || labActif.getMap().getNbLine() * 32 > 720)
+		{
+			//Caméra suit le robot
+			MyView.setCenter(robActif.top().y() * 32, robActif.top().x() * 32);
+			window.setView(MyView);
+		}
 
 		//Pour chaques cases
 		for (int i = 0; i < labActif.getMap().getNbLine(); i++)
