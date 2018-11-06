@@ -28,8 +28,8 @@ protected:
 
 	struct cellule
 	{
-		TYPE element;							//Élément dans la cellule
-		cellule	*next; 							//Pointeur vers la prochaine cellule
+		TYPE element;			//Élément dans la cellule
+		cellule	*next; 			//Pointeur vers la prochaine cellule
 
 		cellule(const TYPE& e, cellule * n)		//Constructeur avec 2 paramètres
 		{
@@ -38,10 +38,10 @@ protected:
 		}
 	};
 
-	cellule	*_top;								//1er élément de la pile
-	int	_size;									//Nombre d'élément de la pile
+	cellule	*_top;			//1er élément de la pile
+	int	_size;				//Nombre d'élément de la pile
 
-	pile(const pile<TYPE>& p) {};				//Copieur protégé
+	pile(const pile<TYPE>& p) {};		//Copieur protégé
 
 public:
 
@@ -49,18 +49,19 @@ public:
 	pile();
 	~pile();
 
-	void push(const TYPE& e);					//Ajoute un dessus
-	void pop();									//Enlève un dessus
+	void push(const TYPE& e);	//Ajoute un dessus
+	void pop();					//Enlève un dessus
 
-	const TYPE& top() const;					//Obtient la valeure au dessus de la pile
-	TYPE& top();								//Obtient la valeure au dessus de la pile (const)
-	int size() const;							//Obtient la grandeur de la pile
+	const TYPE& top() const;	//Obtient la valeure au dessus de la pile
+	TYPE& top();				//Obtient la valeure au dessus de la pile (const)
+	int size() const;			//Obtient la grandeur de la pile
 
-	bool isEmpty() const;						//Vérifie si la pile est vide
-	void clear();								//Vide la pile
+	bool isEmpty() const;		//Vérifie si la pile est vide
+	void clear();				//Vide la pile
 
-	const pile<TYPE>& operator=(const pile& s);	//Copie le contenu d'une pile vers une autre
-	bool operator==(const pile& s)const;		//Compare deux piles
+	//Opérateurs
+	const pile<TYPE>& operator=(const pile& s);
+	bool operator==(const pile& s)const;
 };
 
 //================================
@@ -142,6 +143,9 @@ void pile<TYPE>::clear()
 	while (!isEmpty())
 		pop();
 }
+
+//			Opérateurs
+//================================
 
 //Copie le contenu d'une pile vers une autre
 template<class TYPE>

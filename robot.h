@@ -2,7 +2,7 @@
 	Auteur		: Émile Loiselle et Zachary Cockburn
 	Date		: 2 novembre 2018
 	Programme	: robot.h
-	But			: Entité qui se délace dans un labyrinthe en essayant
+	But			: Entité qui se déplace dans un labyrinthe en essayant
 				  tous les passages possibles.
 ==================================================================*/
 
@@ -33,11 +33,13 @@ private:
 
 public:
 
-	robot();					//Initialise sans paramètres
-	robot(deplacement d);		//Initialise avec 3 paramètres
-	~robot();					//Destruction
+	//Constructeurs et destructeurs
+	robot();
+	robot(deplacement d);
+	~robot();
 
-	deplacement& nextMove();	//Getteur
+	//Getteur
+	deplacement& nextMove();
 
 	const deplacement& top();			//Retourne un élément au dessus de la pile
 	void push(const deplacement&);		//Ajoute un élément au dessus de la pile

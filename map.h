@@ -33,9 +33,8 @@ private:
 public:
 
 	//Constructeurs et destructeur.
-	customMap(istream & file);
 	customMap();
-	//map(const char* name, int line, int col);
+	customMap(istream & file);
 	~customMap();
 
 	void init(istream & file);

@@ -36,6 +36,7 @@ int main()
 	robot robActif(labActif.getPosDepart());		//Les déplacements du robot
 
 	labActif.getMap().print(cout);
+	labActif.print();
 
 	//Charge les textures
 	sf::Texture textureMap;

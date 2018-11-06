@@ -181,4 +181,5 @@ void labyrinthe::clear()
 
 void labyrinthe::print() const
 {
+	_mapLab.print(cout);
 }
