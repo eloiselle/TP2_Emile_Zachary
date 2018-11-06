@@ -38,6 +38,7 @@ int main()
 	//Les déplacements du robot
 	robot robActif(labActif.getPosDepart());
 
+	//Défini une caméra
 	sf::View MyView(sf::FloatRect(0.f, 0.f, 1280.f, 720.f));
 
 	//Charge les textures
@@ -124,6 +125,7 @@ int main()
 		//Efface tout
 		window.clear();
 
+		//Caméra suit le joueur
 		MyView.setCenter(robActif.top().y() * 32, robActif.top().x() * 32);
 		window.setView(MyView);
 
