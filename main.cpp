@@ -29,17 +29,9 @@ int main()
 	//			Initialisations
 	//================================
 
-	//PLanifie le prochain déplacement
-	deplacement nextMove;
-
-	//Le labyrinthe actuel
-	labyrinthe labActif("Maps/Labyrinthe1.txt");
-
-	//Les déplacements du robot
-	robot robActif(labActif.getPosDepart());
-
-	//Défini une caméra
-	sf::View MyView(sf::FloatRect(0.f, 0.f, 1280.f, 720.f));
+	deplacement nextMove;							//PLanifie le prochain déplacement
+	labyrinthe labActif("Maps/Labyrinthe5.txt");	//Le labyrinthe actuel
+	robot robActif(labActif.getPosDepart());		//Les déplacements du robot
 
 	//Charge les textures
 	sf::Texture textureMap;
@@ -49,17 +41,9 @@ int main()
 	sf::IntRect rectSourceMap(0, 0, 32, 32);
 	sf::Sprite spriteMap(textureMap, rectSourceMap);
 
-	//Crée une fenêtre de la grandeur du puzzle
-	//sf::RenderWindow window(sf::VideoMode(
-		//labActif.getMap().getNbCol() * 32,
-		//labActif.getMap().getNbLine() * 32),
-		//"Labyrinthe");
-
-	//if (labActif.getMap().getNbCol() * 32 > 1280 || labActif.getMap().getNbLine() * 32 > 720)
-	//{
-		//Crée une fenêtre définie
+	//Variables pour l'affichage
+	sf::View MyView(sf::FloatRect(0.f, 0.f, 1280.f, 720.f));
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Labyrinthe");
-	//}
 
 	//================================
 	//		Input utilisateur
