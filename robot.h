@@ -36,9 +36,9 @@ public:
 	robot(deplacement d);
 	~robot();
 
-	const deplacement& top();
-	void push(const deplacement&);
-	void pop();
+	const deplacement& top();			//Retourne un élément au dessus de la pile
+	void push(const deplacement&);		//Ajoute un élément au dessus de la pile
+	void pop();							//Enlève un élément au dessus de la pile
 };
 
 //================================
@@ -66,16 +66,19 @@ robot::~robot()
 //		Operations pile
 //================================
 
+//Retourne un élément au dessus de la pile
 const deplacement & robot::top()
 {
 	return _pileDeplacement.top();
 }
 
+//Ajoute un élément au dessus de la pile
 void robot::push(const deplacement& dep)
 {
 	_pileDeplacement.push(dep);
 }
 
+//Enlève un élément au dessus de la pile
 void robot::pop()
 {
 	_pileDeplacement.pop();

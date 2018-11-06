@@ -12,6 +12,9 @@
 
 #pragma once
 
+//Default Librairies
+#include <assert.h>
+
 using namespace std;
 
 //================================

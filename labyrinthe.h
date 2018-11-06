@@ -77,9 +77,11 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 
 	do
 	{
+		//
 		output << "Nombre du fichier du labyrinthe : ";
 		getline(input, inputText);
 
+		//Reformat du nombre pour trouver le fichier
 		inputText.insert(0, "maps/labyrinthe");
 		inputText.append(".txt");
 
@@ -92,10 +94,12 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 			break;
 	} while (true);
 
+	//Enregistre les coordonnées du début et de la fin
 	_mapLab.init(fichier);
 	fichier >> _posDepart.x() >> _posDepart.y()
 		>> _posArrivee.x() >> _posArrivee.y();
 
+	//Définie les orientations
 	_posDepart.orientation() = 'N';
 	_posArrivee.orientation() = 'A';
 
@@ -162,7 +166,7 @@ bool labyrinthe::arrived(const deplacement& pos) const
 }
 
 //Obtient l'objet map du labyrinthe
-inline customMap<char>& labyrinthe::getMap()
+customMap<char>& labyrinthe::getMap()
 {
 	return _mapLab;
 }

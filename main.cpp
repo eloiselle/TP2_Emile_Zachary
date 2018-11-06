@@ -135,7 +135,7 @@ int main()
 			for (int j = 0; j < labActif.getMap().getNbCol(); j++)
 			{
 				//Emplacement de la fenêtre qui va être modifié
-				spriteMap.setPosition(j * 32, i * 32);
+				spriteMap.setPosition(i * 32, j * 32);
 
 				//Si c'est un mur dans la carte
 				if (labActif.getMap()[i][j] == '1')
@@ -168,21 +168,21 @@ int main()
 		}
 
 		//Afficher icone de depart du labyrinthe
-		spriteMap.setPosition(labActif.getPosDepart().y() * 32, labActif.getPosDepart().x() * 32);
+		spriteMap.setPosition(labActif.getPosDepart().x() * 32, labActif.getPosDepart().y() * 32);
 		rectSourceMap.left = 96;
 		rectSourceMap.top = 0;
 		spriteMap.setTextureRect(rectSourceMap);
 		window.draw(spriteMap);
 
 		//Afficher icone d'arrivée du labyrinthe
-		spriteMap.setPosition(labActif.getPosArriver().y() * 32, labActif.getPosArriver().x() * 32);
+		spriteMap.setPosition(labActif.getPosArriver().x() * 32, labActif.getPosArriver().y() * 32);
 		rectSourceMap.left = 0;
 		rectSourceMap.top = 32;
 		spriteMap.setTextureRect(rectSourceMap);
 		window.draw(spriteMap);
 
 		//Affiche le robot
-		spriteMap.setPosition(robActif.top().y() * 32, robActif.top().x() * 32);
+		spriteMap.setPosition(robActif.top().x() * 32, robActif.top().y() * 32);
 		rectSourceMap.left = 7 * 32;
 		rectSourceMap.top = 0;
 		spriteMap.setTextureRect(rectSourceMap);
