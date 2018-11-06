@@ -33,10 +33,12 @@ int main()
 	deplacement nextMove;
 
 	//Le labyrinthe actuel
-	labyrinthe labActif("Maps/Labyrinthe4.txt");
+	labyrinthe labActif("Maps/Labyrinthe5.txt");
 
 	//Les déplacements du robot
 	robot robActif(labActif.getPosDepart());
+
+	sf::View MyView(sf::FloatRect(0.f, 0.f, 1280.f, 720.f));
 
 	//Charge les textures
 	sf::Texture textureMap;
@@ -47,10 +49,7 @@ int main()
 	sf::Sprite spriteMap(textureMap, rectSourceMap);
 
 	//Crée une fenêtre
-	sf::RenderWindow window(sf::VideoMode(
-		labActif.getMap().getNbCol() * 32,
-		labActif.getMap().getNbLine() * 32),
-		"Labyrinthe");
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "Labyrinthe");
 
 	//================================
 	//		Input utilisateur
@@ -124,6 +123,9 @@ int main()
 
 		//Efface tout
 		window.clear();
+
+		MyView.setCenter(robActif.top().y() * 32, robActif.top().x() * 32);
+		window.setView(MyView);
 
 		//Pour chaques cases
 		for (int i = 0; i < labActif.getMap().getNbLine(); i++)
