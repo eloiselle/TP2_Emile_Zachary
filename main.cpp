@@ -188,6 +188,7 @@ int main()
 		//Rafraîchit l'écran avec les nouvelles modifications
 		window.display();
 
+		//Vitesse a laquelle la solution du labyrinthe est executer
 		sf::sleep(sf::milliseconds(30));
 	}
 

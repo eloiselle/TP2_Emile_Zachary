@@ -27,9 +27,11 @@ using namespace std;
 class robot
 {
 private:
+
 	pile<deplacement> _pileDeplacement;
 
 public:
+
 	robot();
 	robot(deplacement d);
 	~robot();

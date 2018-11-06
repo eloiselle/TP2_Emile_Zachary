@@ -20,6 +20,8 @@
 #include "deplacement.h"
 #include "robot.h"
 
+using namespace std;
+
 //================================
 //			Déclarations
 //================================
@@ -62,6 +64,7 @@ public:
 //			Définitions
 //================================
 
+//Constructeur sans parametre
 labyrinthe::labyrinthe()
 {
 	clear();

@@ -25,11 +25,13 @@ template <class TYPE>
 class customMap
 {
 private:
+
 	char *_name;	//pointeur sur le nom de la map
 	TYPE **_map;	//La map dynamique en ligne et colonne
 	int _nbLine, 	//nombre de ligne pour la matrice
 		_nbCol;		//nombre de colonne pour la matrice
 public:
+
 	//Constructeurs et destructeur.
 	customMap(istream & file);
 	customMap();
@@ -43,8 +45,8 @@ public:
 	void clearName();					//Efface le nom actuel de la map
 
 	//Getteurs et setteurs.
-	int getNbLine()const; 					//retourne le nb de ligne
-	int getNbCol()const; 					//retourne le nb de colonne
+	int getNbLine()const; 				//retourne le nb de ligne
+	int getNbCol()const; 				//retourne le nb de colonne
 	void resize(int nbLine, int nbCol);	//resize la matrice avec nouv dims
 
 	//Methodes pour at() et l'operateur [].

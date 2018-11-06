@@ -25,6 +25,7 @@ template <class TYPE>
 class pile
 {
 protected:
+
 	struct cellule
 	{
 		TYPE element;							//Élément dans la cellule

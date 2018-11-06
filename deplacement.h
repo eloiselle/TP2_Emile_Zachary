@@ -12,6 +12,8 @@
 
 #pragma once
 
+using namespace std;
+
 //================================
 //			Déclarations
 //================================
@@ -19,11 +21,13 @@
 class deplacement
 {
 private:
+
 	int _x;				//Position X
 	int _y;				//Position Y
 	char _orientation;	//Orientation en int (1 = Nord, 2 = Est, 3 = Sud, 4 = Ouest, 0 = Aucun
 
 public:
+
 	deplacement();					//Initialise sans paramètres
 	deplacement(int, int, char);	//Initialise avec 3 paramètres
 	~deplacement();					//Destruction
