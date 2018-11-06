@@ -70,6 +70,7 @@ labyrinthe::labyrinthe()
 	clear();
 }
 
+//Constructeur avec parametre
 labyrinthe::labyrinthe(istream& input, ostream& output)
 {
 	string inputText;
@@ -80,13 +81,13 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 		output << "Nombre du fichier du labyrinthe : ";
 		getline(input, inputText);
 
-		inputText.insert(0, "maps/labyrinthe");
+		inputText.insert(0, "Maps/Labyrinthe");
 		inputText.append(".txt");
 
 		fichier.open(inputText);
 
 		if (!fichier)
-			output << "Le fichier " << inputText << " n'a pas été trouvé." << endl;
+			output << "Le fichier '" << inputText << "' n'a pas été trouvé." << endl;
 
 		else
 			break;
@@ -102,16 +103,19 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 	fichier.close();
 }
 
+//Deconstructeur
 labyrinthe::~labyrinthe()
 {
 	clear();
 }
 
+//Obtient la position de depart
 deplacement labyrinthe::getPosDepart() const
 {
 	return _posDepart;
 }
 
+//Obtient la position d'arriver
 deplacement labyrinthe::getPosArriver() const
 {
 	return _posArrivee;
@@ -173,6 +177,7 @@ void labyrinthe::clear()
 	_mapLab.clear();
 }
 
+//Affiche le labyrinthe dans la console
 void labyrinthe::print() const
 {
 }
