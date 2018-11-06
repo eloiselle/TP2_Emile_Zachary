@@ -66,7 +66,9 @@ public:
 //			Définitions
 //================================
 
-//Constructeur sans paramètres
+//	Constructeurs / Destructeur
+//================================
+
 template <class TYPE>
 customMap<TYPE>::customMap()
 {
@@ -74,7 +76,6 @@ customMap<TYPE>::customMap()
 	_nbLine = _nbCol = 0;
 }
 
-//Constructeur avec 2 paramètres
 template <class TYPE>
 customMap<TYPE>::customMap(istream & file)
 {
@@ -84,7 +85,6 @@ customMap<TYPE>::customMap(istream & file)
 	init(file);
 }
 
-//Destructeur
 template <class TYPE>
 customMap<TYPE>::~customMap()
 {
