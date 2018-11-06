@@ -6,6 +6,10 @@
 				  carte du labyrinthe et le robot.
 ==================================================================*/
 
+//================================
+//	Instructions pré-processeur
+//================================
+
 //SFML Librairies
 #include <SFML/Graphics.hpp>
 
@@ -15,7 +19,6 @@
 
 //Custom Librairies
 #include "labyrinthe.h"
-#include "map.h"
 #include "robot.h"
 
 using namespace std;
@@ -28,6 +31,9 @@ int main()
 
 	//Le labyrinthe actuel
 	labyrinthe labActif("Maps/Labyrinthe4.txt");
+
+	//Les déplacements du robot
+	robot robActif(labActif.getPosDepart());
 
 	//Charge les textures
 	sf::Texture textureMap;
@@ -42,6 +48,17 @@ int main()
 		labActif.getMap().getNbCol() * 32,
 		labActif.getMap().getNbLine() * 32),
 		"Labyrinthe");
+
+	//================================
+	//			Événements
+	//================================
+
+	while (labActif.arrived(robActif.getHistorique().top()))
+	{
+		for (int i = 0; i < 4; i++)
+		{
+		}
+	}
 
 	//================================
 	//		Input utilisateur
@@ -109,14 +126,14 @@ int main()
 		}
 
 		//Afficher icone de depart du labyrinthe
-		spriteMap.setPosition(labActif.getPosDepart().getY() * 32, labActif.getPosDepart().getX() * 32);
+		spriteMap.setPosition(labActif.getPosDepart().y() * 32, labActif.getPosDepart().x() * 32);
 		rectSourceMap.left = 96;
 		rectSourceMap.top = 0;
 		spriteMap.setTextureRect(rectSourceMap);
 		window.draw(spriteMap);
 
-		//Afficher icone d'arriver du labyrinthe
-		spriteMap.setPosition(labActif.getPosArriver().getY() * 32, labActif.getPosArriver().getX() * 32);
+		//Afficher icone d'arrivée du labyrinthe
+		spriteMap.setPosition(labActif.getPosArriver().y() * 32, labActif.getPosArriver().x() * 32);
 		rectSourceMap.left = 0;
 		rectSourceMap.top = 32;
 		spriteMap.setTextureRect(rectSourceMap);

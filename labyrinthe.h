@@ -11,9 +11,14 @@
 //================================
 
 #pragma once
+
+//Default Librairies
+#include <string>
+
+//Custom Librairies
 #include "map.h"
 #include "deplacement.h"
-#include <string>
+#include "robot.h"
 
 //================================
 //			Déclarations
@@ -43,7 +48,7 @@ public:
 
 	//Vérifications
 	bool canMove() const;
-	bool arrived() const;
+	bool arrived(deplacement pos) const;
 
 	//Acces a l'objet Map
 	customMap<char>& getMap();
@@ -69,7 +74,7 @@ labyrinthe::labyrinthe(string nom)
 	if (fichier)  //Si l'ouverture fonctionne.
 	{
 		_mapLab.init(fichier);
-		fichier >> _posDepart.getX() >> _posDepart.getY() >> _posArrivee.getX() >> _posArrivee.getY();
+		fichier >> _posDepart.x() >> _posDepart.y() >> _posArrivee.x() >> _posArrivee.y();
 		fichier.close();
 	}
 	else //Si l'ouverture ne fonctionne pas.
@@ -98,8 +103,11 @@ bool labyrinthe::canMove() const
 	return false;
 }
 
-bool labyrinthe::arrived() const
+bool labyrinthe::arrived(deplacement pos) const
 {
+	if (pos.x() == getPosArriver().x() && pos.y() == getPosArriver().y())
+		return true;
+
 	return false;
 }
 

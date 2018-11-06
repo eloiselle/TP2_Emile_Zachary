@@ -8,6 +8,10 @@
 
 #pragma once
 
+//================================
+//			Déclarations
+//================================
+
 class deplacement
 {
 private:
@@ -20,10 +24,17 @@ public:
 	deplacement(int, int, char);
 	~deplacement();
 
-	int& getX();
-	int& getY();
-	char& getOrientation();
+	int& x();
+	int& y();
+	char& orientation();
 };
+
+//================================
+//			Définitions
+//================================
+
+//	Constructeurs / Destructeur
+//================================
 
 deplacement::deplacement()
 {
@@ -40,17 +51,20 @@ deplacement::~deplacement()
 {
 }
 
-int& deplacement::getX()
+//			Getteurs
+//================================
+
+int& deplacement::x()
 {
 	return _x;
 }
 
-int& deplacement::getY()
+int& deplacement::y()
 {
 	return _y;
 }
 
-char& deplacement::getOrientation()
+char& deplacement::orientation()
 {
 	return _orientation;
 }
