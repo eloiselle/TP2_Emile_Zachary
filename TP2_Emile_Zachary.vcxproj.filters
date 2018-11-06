@@ -75,5 +75,8 @@
     <Image Include="images\map_spriteSheet.png">
       <Filter>Images</Filter>
     </Image>
+    <Image Include="images\dungeon_sheet.png">
+      <Filter>Images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

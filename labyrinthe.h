@@ -47,8 +47,8 @@ public:
 	deplacement getPosArriver() const;
 
 	//Vérifications
-	bool canMove(deplacement pos) const;
-	bool arrived(deplacement pos) const;
+	bool canMove(const deplacement& pos, deplacement& posToCheck) const;
+	bool arrived(const deplacement& pos) const;
 
 	//Acces a l'objet Map
 	customMap<char>& getMap();
@@ -104,31 +104,42 @@ deplacement labyrinthe::getPosArriver() const
 }
 
 //Vérifie si la case donnée est possible d'y bouger
-bool labyrinthe::canMove(deplacement pos) const
+bool labyrinthe::canMove(const deplacement& pos, deplacement& posToCheck) const
 {
-	deplacement posToCheck;
+	//Check nord
+	if (_mapLab.at(pos.x(), pos.y() - 1) == '0')
+	{
+		posToCheck.init(pos.x(), pos.y() - 1, 'N');
+		return true;
+	}
 
-	if (pos.orientation() == 'N')
-		if (_mapLab.at(pos.x(), pos.y() - 1) != '0')
-			return false;
+	//Check est
+	if (_mapLab.at(pos.x() + 1, pos.y()) == '0')
+	{
+		posToCheck.init(pos.x() + 1, pos.y(), 'E');
+		return true;
+	}
 
-	if (pos.orientation() == 'E')
-		if (_mapLab.at(pos.x() + 1, pos.y()) != '0')
-			return false;
+	//Check sud
+	if (_mapLab.at(pos.x(), pos.y() + 1) == '0')
+	{
+		posToCheck.init(pos.x(), pos.y() + 1, 'S');
+		return true;
+	}
 
-	if (pos.orientation() == 'S')
-		if (_mapLab.at(pos.x(), pos.y() + 1) != '0')
-			return false;
+	//Check ouest
+	if (_mapLab.at(pos.x() - 1, pos.y()) == '0')
+	{
+		posToCheck.init(pos.x() - 1, pos.y(), 'O');
+		return true;
+	}
 
-	if (pos.orientation() == 'O')
-		if (_mapLab.at(pos.x() - 1, pos.y()) != '0')
-			return false;
-
-	return true;
+	//S'il ne peut pas bouger à l'emplacement
+	return false;
 }
 
 //Vérifie si la position est celle d'arrivée
-bool labyrinthe::arrived(deplacement pos) const
+bool labyrinthe::arrived(const deplacement& pos) const
 {
 	if (pos.x() != getPosArriver().x() || pos.y() != getPosArriver().y())
 		return false;

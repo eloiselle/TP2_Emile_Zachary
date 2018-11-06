@@ -27,14 +27,16 @@ using namespace std;
 class robot
 {
 private:
-	pile<deplacement> historique;
+	pile<deplacement> _pileDeplacement;
 
 public:
 	robot();
 	robot(deplacement d);
 	~robot();
 
-	pile<deplacement>& getPileDeplacement();
+	const deplacement& top();
+	void push(const deplacement&);
+	void pop();
 };
 
 //================================
@@ -46,18 +48,33 @@ public:
 
 robot::robot()
 {
+	_pileDeplacement.clear();
 }
 
 robot::robot(deplacement d)
 {
-	historique.push(d);
+	_pileDeplacement.push(d);
 }
 
 robot::~robot()
 {
+	_pileDeplacement.clear();
 }
 
-pile<deplacement>& robot::getPileDeplacement()
+//		Operations pile
+//================================
+
+const deplacement & robot::top()
 {
-	return historique;
+	return _pileDeplacement.top();
+}
+
+void robot::push(const deplacement& dep)
+{
+	_pileDeplacement.push(dep);
+}
+
+void robot::pop()
+{
+	_pileDeplacement.pop();
 }

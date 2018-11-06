@@ -131,55 +131,32 @@ int main()
 		spriteMap.setTextureRect(rectSourceMap);
 		window.draw(spriteMap);
 
-		//if (!labActif.arrived(robActif.getPileDeplacement().top()))
-		//{
-		//	if (labActif.canMove(robActif.getPileDeplacement().top()))
-		//	{
-		//		if (robActif.getPileDeplacement().top().orientation() == 'N')
-		//		{
-		//			nextMove = robActif.getPileDeplacement().top();
-		//			nextMove.y()++;
+		if (!labActif.arrived(robActif.top()))
+		{
+			if (labActif.canMove(robActif.top(), nextMove))
+				robActif.push(nextMove);
 
-		//			robActif.getPileDeplacement().push(nextMove);
-		//		}
+			else
+			{
+				labActif.getMap().at(robActif.top().x(), robActif.top().y()) = 'V';
+				robActif.pop();
+			}
+		}
+		else
+		{
+			cout << "SUCCESS";
+		}
 
-		//		if (robActif.getPileDeplacement().top().orientation() == 'E')
-		//		{
-		//			nextMove = robActif.getPileDeplacement().top();
-		//			nextMove.x()++;
-
-		//			robActif.getPileDeplacement().push(nextMove);
-		//		}
-
-		//		if (robActif.getPileDeplacement().top().orientation() == 'S')
-		//		{
-		//			nextMove = robActif.getPileDeplacement().top();
-		//			nextMove.y()--;
-
-		//			robActif.getPileDeplacement().push(nextMove);
-		//		}
-
-		//		if (robActif.getPileDeplacement().top().orientation() == 'O')
-		//		{
-		//			nextMove = robActif.getPileDeplacement().top();
-		//			nextMove.x()--;
-
-		//			robActif.getPileDeplacement().push(nextMove);
-		//		}
-		//	}
-
-		//	labActif.getMap().at(robActif.getPileDeplacement().top().x(),
-		//		robActif.getPileDeplacement().top().y()) = 'V';
-
-		//	robActif.getPileDeplacement().pop();
-		//}
-		//else
-		//{
-		//	cout << "SUCCESS";
-		//}
+		spriteMap.setPosition(robActif.top().x() * 32, robActif.top().y() * 32);
+		rectSourceMap.left = 7 * 32;
+		rectSourceMap.top = 0;
+		spriteMap.setTextureRect(rectSourceMap);
+		window.draw(spriteMap);
 
 		//Rafraîchit l'écran avec les nouvelles modifications
 		window.display();
+
+		sf::sleep(sf::milliseconds(1000));
 	}
 
 	return EXIT_SUCCESS;
