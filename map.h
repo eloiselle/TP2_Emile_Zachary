@@ -109,9 +109,7 @@ template <class TYPE>
 void customMap<TYPE>::clear()
 {
 	for (int i = 0; i < _nbLine; i++)
-	{
 		delete[] * (_map + i);
-	}
 
 	delete[]_map;
 	_map = nullptr;
@@ -147,16 +145,12 @@ void customMap<TYPE>::resize(int nbLine, int nbCol)
 {
 	assert(nbLine >= 0 && nbCol >= 0);
 	if (nbLine == 0 || nbCol == 0)
-	{
 		clear();
-	}
 
 	TYPE **newMap = new TYPE*[nbLine];
 
 	for (int i = 0; i < nbLine; i++)
-	{
 		*(newMap + i) = new TYPE[nbCol];
-	}
 
 	for (int i = 0; i < nbLine && i < _nbLine; i++)
 	{
@@ -193,9 +187,8 @@ template <class TYPE>
 const char* customMap<TYPE>::getName()const
 {
 	if (_name == nullptr)
-	{
 		return "\0";
-	}
+
 	return _name;
 }
 
