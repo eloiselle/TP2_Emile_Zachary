@@ -35,6 +35,8 @@ int main()
 	labyrinthe labActif(cin, cout);					//Le labyrinthe actuel
 	robot robActif(labActif.getPosDepart());		//Les déplacements du robot
 
+	labActif.getMap().print(cout);
+
 	//Charge les textures
 	sf::Texture textureMap;
 	textureMap.loadFromFile("images/map_spriteSheet.png");

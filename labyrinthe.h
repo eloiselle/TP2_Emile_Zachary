@@ -64,7 +64,6 @@ public:
 //			Définitions
 //================================
 
-//Constructeur sans parametre
 labyrinthe::labyrinthe()
 {
 	clear();
@@ -105,6 +104,9 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 
 	fichier.close();
 }
+
+//	Constructeurs / Destructeur
+//================================
 
 labyrinthe::~labyrinthe()
 {
