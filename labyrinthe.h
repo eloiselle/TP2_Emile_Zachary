@@ -81,7 +81,13 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 		inputText.append(".txt");
 
 		fichier.open(inputText);
-	} while (!fichier);
+
+		if (!fichier)
+			output << "Le fichier " << inputText << " n'a pas été trouvé." << endl;
+
+		else
+			break;
+	} while (true);
 
 	_mapLab.init(fichier);
 	fichier >> _posDepart.x() >> _posDepart.y()

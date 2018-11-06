@@ -29,6 +29,9 @@ int main()
 	//			Initialisations
 	//================================
 
+	//Permet les caractères spéciaux français
+	setlocale(LC_ALL, "fr_FR.UTF-8");
+
 	deplacement nextMove;							//PLanifie le prochain déplacement
 	labyrinthe labActif(cin, cout);					//Le labyrinthe actuel
 	robot robActif(labActif.getPosDepart());		//Les déplacements du robot
