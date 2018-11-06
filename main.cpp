@@ -29,6 +29,9 @@ int main()
 	//			Initialisations
 	//================================
 
+	//PLanifie le prochain déplacement
+	deplacement nextMove;
+
 	//Le labyrinthe actuel
 	labyrinthe labActif("Maps/Labyrinthe4.txt");
 
@@ -48,17 +51,6 @@ int main()
 		labActif.getMap().getNbCol() * 32,
 		labActif.getMap().getNbLine() * 32),
 		"Labyrinthe");
-
-	//================================
-	//			Événements
-	//================================
-
-	while (labActif.arrived(robActif.getHistorique().top()))
-	{
-		for (int i = 0; i < 4; i++)
-		{
-		}
-	}
 
 	//================================
 	//		Input utilisateur
@@ -139,9 +131,68 @@ int main()
 		spriteMap.setTextureRect(rectSourceMap);
 		window.draw(spriteMap);
 
+		//if (!labActif.arrived(robActif.getPileDeplacement().top()))
+		//{
+		//	if (labActif.canMove(robActif.getPileDeplacement().top()))
+		//	{
+		//		if (robActif.getPileDeplacement().top().orientation() == 'N')
+		//		{
+		//			nextMove = robActif.getPileDeplacement().top();
+		//			nextMove.y()++;
+
+		//			robActif.getPileDeplacement().push(nextMove);
+		//		}
+
+		//		if (robActif.getPileDeplacement().top().orientation() == 'E')
+		//		{
+		//			nextMove = robActif.getPileDeplacement().top();
+		//			nextMove.x()++;
+
+		//			robActif.getPileDeplacement().push(nextMove);
+		//		}
+
+		//		if (robActif.getPileDeplacement().top().orientation() == 'S')
+		//		{
+		//			nextMove = robActif.getPileDeplacement().top();
+		//			nextMove.y()--;
+
+		//			robActif.getPileDeplacement().push(nextMove);
+		//		}
+
+		//		if (robActif.getPileDeplacement().top().orientation() == 'O')
+		//		{
+		//			nextMove = robActif.getPileDeplacement().top();
+		//			nextMove.x()--;
+
+		//			robActif.getPileDeplacement().push(nextMove);
+		//		}
+		//	}
+
+		//	labActif.getMap().at(robActif.getPileDeplacement().top().x(),
+		//		robActif.getPileDeplacement().top().y()) = 'V';
+
+		//	robActif.getPileDeplacement().pop();
+		//}
+		//else
+		//{
+		//	cout << "SUCCESS";
+		//}
+
 		//Rafraîchit l'écran avec les nouvelles modifications
 		window.display();
 	}
 
 	return EXIT_SUCCESS;
 }
+
+//bool resoudre(robot robot, labyrinthe lab)
+//{
+//	if (robot.getPileDeplacement().top() == lab.getPosArriver())
+//	{
+//		return true;
+//	}
+//
+//	if (lab.getMap().at(robot.getPileDeplacement().top().x(), robot.getPileDeplacement().top().x()) == '0' && resoudre(robot()))
+//	{
+//	}
+//}

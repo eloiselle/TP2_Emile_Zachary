@@ -27,6 +27,8 @@ public:
 	int& x();
 	int& y();
 	char& orientation();
+
+	bool operator==(const deplacement& s)const;
 };
 
 //================================
@@ -67,4 +69,12 @@ int& deplacement::y()
 char& deplacement::orientation()
 {
 	return _orientation;
+}
+
+bool deplacement::operator==(const deplacement & p) const
+{
+	if (_x == p._x && _y == p._y)
+		return true;
+
+	return false;
 }

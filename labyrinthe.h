@@ -47,7 +47,7 @@ public:
 	deplacement getPosArriver() const;
 
 	//Vérifications
-	bool canMove() const;
+	bool canMove(deplacement pos) const;
 	bool arrived(deplacement pos) const;
 
 	//Acces a l'objet Map
@@ -74,7 +74,12 @@ labyrinthe::labyrinthe(string nom)
 	if (fichier)  //Si l'ouverture fonctionne.
 	{
 		_mapLab.init(fichier);
-		fichier >> _posDepart.x() >> _posDepart.y() >> _posArrivee.x() >> _posArrivee.y();
+		fichier >> _posDepart.x() >> _posDepart.y()
+			>> _posArrivee.x() >> _posArrivee.y();
+
+		_posDepart.orientation() = 'N';
+		_posArrivee.orientation() = 'A';
+
 		fichier.close();
 	}
 	else //Si l'ouverture ne fonctionne pas.
@@ -98,24 +103,46 @@ deplacement labyrinthe::getPosArriver() const
 	return _posArrivee;
 }
 
-bool labyrinthe::canMove() const
+//Vérifie si la case donnée est possible d'y bouger
+bool labyrinthe::canMove(deplacement pos) const
 {
-	return false;
+	deplacement posToCheck;
+
+	if (pos.orientation() == 'N')
+		if (_mapLab.at(pos.x(), pos.y() - 1) != '0')
+			return false;
+
+	if (pos.orientation() == 'E')
+		if (_mapLab.at(pos.x() + 1, pos.y()) != '0')
+			return false;
+
+	if (pos.orientation() == 'S')
+		if (_mapLab.at(pos.x(), pos.y() + 1) != '0')
+			return false;
+
+	if (pos.orientation() == 'O')
+		if (_mapLab.at(pos.x() - 1, pos.y()) != '0')
+			return false;
+
+	return true;
 }
 
+//Vérifie si la position est celle d'arrivée
 bool labyrinthe::arrived(deplacement pos) const
 {
-	if (pos.x() == getPosArriver().x() && pos.y() == getPosArriver().y())
-		return true;
+	if (pos.x() != getPosArriver().x() || pos.y() != getPosArriver().y())
+		return false;
 
-	return false;
+	return true;
 }
 
+//Obtient l'objet map du labyrinthe
 inline customMap<char>& labyrinthe::getMap()
 {
 	return _mapLab;
 }
 
+//Clear le labyrinthe
 void labyrinthe::clear()
 {
 	_mapLab.clear();

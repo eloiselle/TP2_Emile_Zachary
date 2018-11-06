@@ -34,7 +34,7 @@ public:
 	robot(deplacement d);
 	~robot();
 
-	pile<deplacement>& getHistorique();
+	pile<deplacement>& getPileDeplacement();
 };
 
 //================================
@@ -57,7 +57,7 @@ robot::~robot()
 {
 }
 
-pile<deplacement>& robot::getHistorique()
+pile<deplacement>& robot::getPileDeplacement()
 {
 	return historique;
 }
