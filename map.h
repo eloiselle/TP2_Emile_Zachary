@@ -2,7 +2,7 @@
 	Auteur		: Émile Loiselle et Zachary Cockburn
 	Date		: 31 octobre 2018
 	Programme	: map.h
-	But			: Une matrice dynamique en 2 dimensions.
+	But			: Manipulation d'une matrice dynamique en 2 dimensions.
 ==================================================================*/
 
 //================================

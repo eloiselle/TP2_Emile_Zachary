@@ -1,7 +1,7 @@
 /*==================================================================
 	Auteur		: Émile Loiselle et Zachary Cockburn
 	Date		: 2 novembre 2018
-	Programme	: robot.h
+	Programme	: deplacement.h
 	But			: Gère les informations sur les déplacements.
 ==================================================================*/
 
@@ -10,9 +10,6 @@
 //================================
 
 #pragma once
-
-//Default Librairies
-#include <assert.h>
 
 using namespace std;
 

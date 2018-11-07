@@ -2,8 +2,8 @@
 	Auteur		: Émile Loiselle et Zachary Cockburn
 	Date		: 29 octobre 2018
 	Programme	: main.cpp
-	But			: Gère les opérations et les comparaisons entre la
-				  carte du labyrinthe et le robot.
+	But			: Programme qui obtient une map d'un labyrinthe et qui fait
+				  aller un robot au travers pour trouver la sortie.
 ==================================================================*/
 
 //================================
@@ -15,7 +15,6 @@
 
 //Default Librairies
 #include <iostream>
-#include <fstream>
 
 //Custom Librairies
 #include "labyrinthe.h"
@@ -112,16 +111,23 @@ int main()
 				oldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
 				break;
 			}
+
+			//Si la roue crantée de la souris est utilisée
 			case sf::Event::MouseWheelScrolled:
 
+				//Si on est en mouvement
 				if (moving)
 					break;
 
+				//Calcul le mouvement de la roue crantée de souris négatif
 				if (event.mouseWheelScroll.delta <= -1)
 					zoom = std::min(2.f, zoom + .1f);
+
+				//Calcul le mouvement de la roue crantée de souris positif
 				else if (event.mouseWheelScroll.delta >= 1)
 					zoom = std::max(.5f, zoom - .1f);
 
+				//Applique le zoom dans l'écran en cours
 				MyView.setSize(window.getDefaultView().getSize());
 				MyView.zoom(zoom);
 				window.setView(MyView);

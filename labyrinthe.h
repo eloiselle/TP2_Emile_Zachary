@@ -14,11 +14,11 @@
 
 //Default Librairies
 #include <string>
+#include <fstream>
 
 //Custom Librairies
 #include "map.h"
 #include "deplacement.h"
-#include "robot.h"
 
 using namespace std;
 
