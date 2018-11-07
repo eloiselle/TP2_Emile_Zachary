@@ -100,7 +100,7 @@ bool customMap<TYPE>::init(istream & file) {
 
 	file >> newNbLine >> newNbCol;
 
-	if (newNbLine >= 0 || newNbCol >= 0)
+	if (!(newNbLine < 0 || newNbCol < 0))
 	{
 		resize(newNbLine, newNbCol);
 		read(file);

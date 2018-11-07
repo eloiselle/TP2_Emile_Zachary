@@ -32,8 +32,8 @@ int main()
 	setlocale(LC_ALL, "fr_FR.UTF-8");
 
 	//Objets labyrinthe
-	labyrinthe labActif(cin, cout);					//Le labyrinthe actuel
-	robot robActif(labActif.getPosDepart());		//Les déplacements du robot
+	labyrinthe labActif(cin, cout);				//Le labyrinthe actuel
+	robot robActif(labActif.getPosDepart());	//Les déplacements du robot
 
 	//Charge les textures
 	sf::Texture textureMap;
@@ -77,7 +77,8 @@ int main()
 				if (event.mouseButton.button == 0)
 				{
 					moving = true;
-					oldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+					oldPos = window.mapPixelToCoords(
+						sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 				}
 				break;
 
@@ -98,7 +99,8 @@ int main()
 					break;
 
 				//Obtient la position actuelle du curseur
-				const sf::Vector2f newPos = window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
+				const sf::Vector2f newPos = window.mapPixelToCoords(
+					sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
 
 				//Calcul la différence entre la position du curseur appuyé
 				const sf::Vector2f deltaPos = oldPos - newPos;
@@ -108,7 +110,8 @@ int main()
 				window.setView(MyView);
 
 				//Remplace la vieille position avec la nouvelle position
-				oldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
+				oldPos = window.mapPixelToCoords(
+					sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
 				break;
 			}
 
@@ -141,7 +144,7 @@ int main()
 
 		if (!labActif.getFinRecherche())
 		{
-			//Si on n'est pas arrivés à la fin et qu'on est pas au départ ou qu'on a jamais bougé
+			//Si on n'est pas arrivés à la fin
 			if (!labActif.arrived(robActif.top()))
 			{
 				//Vérifie si on peut bouger et où on peut bouger si oui
