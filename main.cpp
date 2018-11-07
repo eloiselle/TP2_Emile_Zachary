@@ -47,6 +47,10 @@ int main()
 	sf::View MyView(sf::FloatRect(0.f, 0.f, 1280.f, 720.f));
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Labyrinthe");
 
+	sf::Vector2f oldPos;
+	bool moving = false;
+	float zoom = 1;
+
 	//================================
 	//		Input utilisateur
 	//================================
@@ -60,6 +64,19 @@ int main()
 		//Si un événement est déclanché
 		while (window.pollEvent(event))
 		{
+			//Flèches pour diriger la caméra
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+				MyView.setCenter(MyView.getCenter().x - 16, MyView.getCenter().y);
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+				MyView.setCenter(MyView.getCenter().x + 16, MyView.getCenter().y);
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+				MyView.setCenter(MyView.getCenter().x, MyView.getCenter().y + 16);
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+				MyView.setCenter(MyView.getCenter().x, MyView.getCenter().y - 16);
+
 			//Pour l'événement fermeture de fenêtre ( le X )
 			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				window.close();
@@ -71,136 +88,199 @@ int main()
 				sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
 				window.setView(sf::View(visibleArea));
 			}
-		}
 
-		//================================
-		//			Événements
-		//================================
-
-		//Si on n'est pas arrivés à la fin et qu'on est pas au départ ou qu'on a jamais bougé
-		if (!labActif.arrived(robActif.top()) &&
-			(robActif.top() != labActif.getPosDepart() || robActif.nextMove().x() == NULL))
-		{
-			//Vérifie si on peut bouger et où on peut bouger si oui
-			if (labActif.canMove(robActif.top(), robActif.nextMove()))
+			//Si la souris est bougée
+			if (event.type == sf::Event::MouseButtonPressed)
 			{
-				//Place un 'V' ou on est
-				labActif.getMap().at(robActif.top().x(), robActif.top().y()) = 'V';
-
-				//Bouge vers le nouvel emplacement
-				robActif.push(robActif.nextMove());
+				if (event.mouseButton.button == 0)
+				{
+					moving = true;
+					oldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+				}
+			}
+			else if (sf::Event::MouseButtonReleased)
+			{
+				if (event.mouseButton.button == 0)
+				{
+					moving = false;
+				}
 			}
 
-			//Si on ne peut pas bouger
-			else
+			else if (sf::Event::MouseMoved && !moving)
 			{
-				//Place un 'V' où on était
-				labActif.getMap().at(robActif.top().x(), robActif.top().y()) = 'V';
+				// Determine the new position in world coordinates
+				const sf::Vector2f newPos = window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
+				// Determine how the cursor has moved
+				// Swap these to invert the movement direction
+				const sf::Vector2f deltaPos = oldPos - newPos;
 
-				//Recule d'une case
-				robActif.pop();
+				// Move our view accordingly and update the window
+				MyView.setCenter(MyView.getCenter() + deltaPos);
+				window.setView(MyView);
 
-				//Place la case actuelle d'un vide
-				labActif.getMap().at(robActif.top().x(), robActif.top().y()) = '0';
+				// Save the new position as the old one
+				// We're recalculating this, since we've changed the view
+				oldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
 			}
-		}
 
-		//================================
-		//			Affichage
-		//================================
+			else if (sf::Event::MouseWheelScrolled && !moving)
+			{
+				// Determine the scroll direction and adjust the zoom level
+				// Again, you can swap these to invert the direction
+				if (event.mouseWheelScroll.delta <= -1)
+					zoom = std::min(2.f, zoom + .1f);
+				else if (event.mouseWheelScroll.delta >= 1)
+					zoom = std::max(.5f, zoom - .1f);
 
-		//Efface tout
-		window.clear();
+				// Update our view
+				MyView.setSize(window.getDefaultView().getSize()); // Reset the size
+				MyView.zoom(zoom); // Apply the zoom level (this transforms the view)
+				window.setView(MyView);
+			}
+			//================================
+			//			Événements
+			//================================
 
-		//Si la map est plus grande que l'écran
-		if (labActif.getMap().getNbCol() * 32 > 1280 || labActif.getMap().getNbLine() * 32 > 720)
-		{
-			//Caméra suit le robot
-			MyView.setCenter(robActif.top().x() * 32, robActif.top().y() * 32);
+			if (!labActif.getFinRecherche())
+			{
+				//Si on n'est pas arrivés à la fin et qu'on est pas au départ ou qu'on a jamais bougé
+				if (!labActif.arrived(robActif.top()) &&
+					(robActif.top() != labActif.getPosDepart() || robActif.nextMove().x() == NULL))
+				{
+					//Vérifie si on peut bouger et où on peut bouger si oui
+					if (labActif.canMove(robActif.top(), robActif.nextMove()))
+					{
+						//Place un 'V' ou on est
+						labActif.getMap().at(robActif.top().x(), robActif.top().y()) = 'V';
+
+						//Bouge vers le nouvel emplacement
+						robActif.push(robActif.nextMove());
+					}
+
+					//Si on ne peut pas bouger
+					else
+					{
+						//Place un 'V' où on était
+						labActif.getMap().at(robActif.top().x(), robActif.top().y()) = 'V';
+
+						//Recule d'une case
+						robActif.pop();
+
+						//Place la case actuelle d'un vide
+						labActif.getMap().at(robActif.top().x(), robActif.top().y()) = '0';
+					}
+				}
+
+				//Si on est de retour au début
+				else if (robActif.top() == labActif.getPosDepart())
+				{
+					cout << "Aucune solution" << endl;
+					labActif.getFinRecherche() = true;
+				}
+
+				//Si on est à la fin
+				else
+				{
+					cout << "Solution trouvee" << endl;
+					labActif.getFinRecherche() = true;
+
+					while (robActif.size() > 1)
+					{
+						labActif.getMap().at(robActif.top().x(), robActif.top().y()) = 'T';
+						robActif.pop();
+					}
+				}
+			}
+
+			//================================
+			//			Affichage
+			//================================
+
+			//Efface tout
+			window.clear();
+
 			window.setView(MyView);
-		}
 
-		//Pour chaques cases
-		for (int i = 0; i < labActif.getMap().getNbLine(); i++)
-		{
-			for (int j = 0; j < labActif.getMap().getNbCol(); j++)
+			//Pour chaques cases
+			for (int i = 0; i < labActif.getMap().getNbLine(); i++)
 			{
-				//Emplacement de la fenêtre qui va être modifié
-				spriteMap.setPosition(i * 32, j * 32);
-
-				//Si c'est un mur dans la carte
-				if (labActif.getMap()[i][j] == '1')
+				for (int j = 0; j < labActif.getMap().getNbCol(); j++)
 				{
-					//Place la texture sur l'emplacement du mur
-					rectSourceMap.left = 1 * 32;
-					rectSourceMap.top = 0;
-				}
+					//Emplacement de la fenêtre qui va être modifié
+					spriteMap.setPosition(i * 32, j * 32);
 
-				//Si c'est vide
-				else if (labActif.getMap()[i][j] == '0')
-				{
-					//Place la texture sur l'emplacement du plancher
-					rectSourceMap.left = 0;
-					rectSourceMap.top = 0;
-				}
+					//Si c'est un mur dans la carte
+					if (labActif.getMap()[i][j] == '1')
+					{
+						//Place la texture sur l'emplacement du mur
+						rectSourceMap.left = 1;
+						rectSourceMap.top = 0;
+					}
 
-				else if (labActif.getMap()[i][j] == 'V')
-				{
-					//Place la texture sur l'emplacement de la vitre
-					rectSourceMap.left = 6 * 32;
-					rectSourceMap.top = 0;
+					//Si c'est vide
+					else if (labActif.getMap()[i][j] == '0')
+					{
+						//Place la texture sur l'emplacement du plancher
+						rectSourceMap.left = 0;
+						rectSourceMap.top = 0;
+					}
+
+					else if (labActif.getMap()[i][j] == 'V')
+					{
+						//Place la texture sur l'emplacement de la vitre
+						rectSourceMap.left = 0;
+						rectSourceMap.top = 0;
+					}
+
+					else if (labActif.getMap()[i][j] == 'T')
+					{
+						//Place la texture sur l'emplacement de la vitre
+						rectSourceMap.left = 1;
+						rectSourceMap.top = 1;
+					}
+
+					rectSourceMap.left = rectSourceMap.left * 32;
+					rectSourceMap.top = rectSourceMap.top * 32;
+
+					//Met à jour le sprite avec la nouvelle texture
+					spriteMap.setTextureRect(rectSourceMap);
+
+					//Affiche le sprite avec la nouvelle texture
+					window.draw(spriteMap);
 				}
-				//Met à jour le sprite avec la nouvelle texture
+			}
+
+			//Afficher icone de depart du labyrinthe
+			spriteMap.setPosition(labActif.getPosDepart().x() * 32, labActif.getPosDepart().y() * 32);
+			rectSourceMap.left = 3 * 32;
+			rectSourceMap.top = 0;
+			spriteMap.setTextureRect(rectSourceMap);
+			window.draw(spriteMap);
+
+			//Afficher icone d'arrivée du labyrinthe
+			spriteMap.setPosition(labActif.getPosArriver().x() * 32, labActif.getPosArriver().y() * 32);
+			rectSourceMap.left = 0;
+			rectSourceMap.top = 1 * 32;
+			spriteMap.setTextureRect(rectSourceMap);
+			window.draw(spriteMap);
+
+			if (!labActif.getFinRecherche())
+			{
+				//Affiche le robot
+				spriteMap.setPosition(robActif.top().x() * 32, robActif.top().y() * 32);
+				rectSourceMap.left = 7 * 32;
+				rectSourceMap.top = 0;
 				spriteMap.setTextureRect(rectSourceMap);
-
-				//Affiche le sprite avec la nouvelle texture
 				window.draw(spriteMap);
 			}
+
+			//Rafraîchit l'écran avec les nouvelles modifications
+			window.display();
+
+			//Vitesse a laquelle la solution du labyrinthe est executer
+			//sf::sleep(sf::milliseconds(50));
 		}
 
-		//Afficher icone de depart du labyrinthe
-		spriteMap.setPosition(labActif.getPosDepart().x() * 32, labActif.getPosDepart().y() * 32);
-		rectSourceMap.left = 96;
-		rectSourceMap.top = 0;
-		spriteMap.setTextureRect(rectSourceMap);
-		window.draw(spriteMap);
-
-		//Afficher icone d'arrivée du labyrinthe
-		spriteMap.setPosition(labActif.getPosArriver().x() * 32, labActif.getPosArriver().y() * 32);
-		rectSourceMap.left = 0;
-		rectSourceMap.top = 32;
-		spriteMap.setTextureRect(rectSourceMap);
-		window.draw(spriteMap);
-
-		//Affiche le robot
-		spriteMap.setPosition(robActif.top().x() * 32, robActif.top().y() * 32);
-		rectSourceMap.left = 7 * 32;
-		rectSourceMap.top = 0;
-		spriteMap.setTextureRect(rectSourceMap);
-		window.draw(spriteMap);
-
-		//Rafraîchit l'écran avec les nouvelles modifications
-		window.display();
-
-		//Vitesse a laquelle la solution du labyrinthe est executer
-		sf::sleep(sf::milliseconds(30));
-
-		//Si on est de retour au début
-		if (robActif.top() == labActif.getPosDepart())
-		{
-			cout << "Aucune solution" << endl;
-			system("pause");
-			break;
-		}
-
-		//Si on est à la fin
-		if (robActif.top() == labActif.getPosArriver())
-		{
-			cout << "Success" << endl;
-			system("pause");
-			break;
-		}
+		return EXIT_SUCCESS;
 	}
-
-	return EXIT_SUCCESS;
 }

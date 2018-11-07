@@ -30,6 +30,9 @@ class labyrinthe
 {
 private:
 
+	//Contient le flag si la solution a été trouvée
+	bool _finRecherche;
+
 	//Contient les murs d'une map
 	customMap<char> _mapLab;
 
@@ -48,6 +51,7 @@ public:
 	deplacement getPosDepart() const;
 	deplacement getPosArriver() const;
 	customMap<char>& getMap();
+	bool& getFinRecherche();
 
 	//Vérifications
 	bool canMove(const deplacement& pos, deplacement& posToCheck) const;
@@ -77,7 +81,7 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 
 	do
 	{
-		output << "Nombre du fichier du labyrinthe : ";
+		output << "Numéro du fichier du labyrinthe : ";
 		getline(input, inputText);
 
 		//Reformat du nombre pour trouver le fichier
@@ -99,6 +103,8 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 		>> _posArrivee.x() >> _posArrivee.y();
 
 	fichier.close();
+
+	_finRecherche = false;
 }
 
 labyrinthe::~labyrinthe()
@@ -122,6 +128,11 @@ deplacement labyrinthe::getPosArriver() const
 customMap<char>& labyrinthe::getMap()
 {
 	return _mapLab;
+}
+
+bool & labyrinthe::getFinRecherche()
+{
+	return _finRecherche;
 }
 
 //			Vérifications
@@ -177,6 +188,11 @@ bool labyrinthe::arrived(const deplacement& pos) const
 void labyrinthe::clear()
 {
 	_mapLab.clear();
+
+	_posDepart.clear();
+	_posArrivee.clear();
+
+	_finRecherche = false;
 }
 
 void labyrinthe::print() const

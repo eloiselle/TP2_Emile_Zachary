@@ -37,7 +37,7 @@ public:
 	customMap(istream & file);
 	~customMap();
 
-	void init(istream & file);
+	bool init(istream & file);
 
 	//Methodes pour clear.
 	void clear();						//Fait un menage de printemps de la map
@@ -94,13 +94,20 @@ customMap<TYPE>::~customMap()
 
 //Initialise le vecteur 2D contenant les valeurs des tuiles de la carte
 template <class TYPE>
-void customMap<TYPE>::init(istream & file) {
+bool customMap<TYPE>::init(istream & file) {
 	assert(!file.fail());
 	int newNbLine, newNbCol;
 
 	file >> newNbLine >> newNbCol;
-	resize(newNbLine, newNbCol);
-	read(file);
+
+	if (newNbLine >= 0 || newNbCol >= 0)
+	{
+		resize(newNbLine, newNbCol);
+		read(file);
+		return true;
+	}
+
+	return false;
 }
 
 //Fait un menage de printemps de la map
