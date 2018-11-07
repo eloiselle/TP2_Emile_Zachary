@@ -102,9 +102,11 @@ int main()
 				//Calcul la différence entre la position du curseur appuyé
 				const sf::Vector2f deltaPos = oldPos - newPos;
 
+				//Rafraîchi l'affichage
 				MyView.setCenter(MyView.getCenter() + deltaPos);
 				window.setView(MyView);
 
+				//Remplace la vieille position avec la nouvelle position
 				oldPos = window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
 				break;
 			}
@@ -214,7 +216,7 @@ int main()
 				else if (labActif.getMap()[i][j] == 'V')
 				{
 					//Place la texture sur l'emplacement de la vitre
-					rectSourceMap.left = 0;
+					rectSourceMap.left = 5;
 					rectSourceMap.top = 0;
 				}
 
