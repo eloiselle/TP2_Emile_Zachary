@@ -59,7 +59,7 @@ public:
 
 	//Utilitaires
 	void clear();
-	void print() const;
+	void print(ostream&) const;
 };
 
 //================================
@@ -99,6 +99,8 @@ labyrinthe::labyrinthe(istream& input, ostream& output)
 
 	//Enregistre les coordonnées du début et de la fin
 	_mapLab.init(fichier);
+
+	//Positions de X et Y inversées, étant donné que Y et X sont... BLABALBALBL
 	fichier >> _posDepart.x() >> _posDepart.y()
 		>> _posArrivee.x() >> _posArrivee.y();
 
@@ -142,30 +144,30 @@ bool & labyrinthe::getFinRecherche()
 bool labyrinthe::canMove(const deplacement& pos, deplacement& posToCheck) const
 {
 	//Check nord
-	if (_mapLab.at(pos.x(), pos.y() - 1) == '0')
-	{
-		posToCheck.init(pos.x(), pos.y() - 1);
-		return true;
-	}
-
-	//Check est
-	if (_mapLab.at(pos.x() + 1, pos.y()) == '0')
-	{
-		posToCheck.init(pos.x() + 1, pos.y());
-		return true;
-	}
-
-	//Check sud
 	if (_mapLab.at(pos.x(), pos.y() + 1) == '0')
 	{
 		posToCheck.init(pos.x(), pos.y() + 1);
 		return true;
 	}
 
-	//Check ouest
+	//Check est
 	if (_mapLab.at(pos.x() - 1, pos.y()) == '0')
 	{
 		posToCheck.init(pos.x() - 1, pos.y());
+		return true;
+	}
+
+	//Check sud
+	if (_mapLab.at(pos.x(), pos.y() - 1) == '0')
+	{
+		posToCheck.init(pos.x(), pos.y() - 1);
+		return true;
+	}
+
+	//Check ouest
+	if (_mapLab.at(pos.x() + 1, pos.y()) == '0')
+	{
+		posToCheck.init(pos.x() + 1, pos.y());
 		return true;
 	}
 
@@ -195,7 +197,7 @@ void labyrinthe::clear()
 	_finRecherche = false;
 }
 
-void labyrinthe::print() const
+void labyrinthe::print(ostream& output) const
 {
-	_mapLab.print(cout);
+	_mapLab.print(output);
 }

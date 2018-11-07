@@ -26,29 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="maps\Labyrinthe0.txt">
-      <Filter>Maps</Filter>
-    </Text>
-    <Text Include="maps\Labyrinthe1.txt">
-      <Filter>Maps</Filter>
-    </Text>
-    <Text Include="maps\Labyrinthe2.txt">
-      <Filter>Maps</Filter>
-    </Text>
-    <Text Include="maps\Labyrinthe2v67Col.txt">
-      <Filter>Maps</Filter>
-    </Text>
-    <Text Include="maps\Labyrinthe3.txt">
-      <Filter>Maps</Filter>
-    </Text>
-    <Text Include="maps\Labyrinthe4.txt">
-      <Filter>Maps</Filter>
-    </Text>
-    <Text Include="maps\Labyrinthe5.txt">
-      <Filter>Maps</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Tp2.doc">
       <Filter>Resource Files</Filter>
     </None>
@@ -75,5 +52,31 @@
     <Image Include="images\map_spriteSheet.png">
       <Filter>Images</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="maps\Labyrinthe0.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe1.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe2.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe2v67Cols.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe3.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe3v67Lines.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe4.txt">
+      <Filter>Maps</Filter>
+    </Text>
+    <Text Include="maps\Labyrinthe5.txt">
+      <Filter>Maps</Filter>
+    </Text>
   </ItemGroup>
 </Project>

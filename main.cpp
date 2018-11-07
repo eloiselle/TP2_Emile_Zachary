@@ -32,6 +32,7 @@ int main()
 	//Permet les caractères spéciaux français
 	setlocale(LC_ALL, "fr_FR.UTF-8");
 
+	//Objets labyrinthe
 	labyrinthe labActif(cin, cout);					//Le labyrinthe actuel
 	robot robActif(labActif.getPosDepart());		//Les déplacements du robot
 
@@ -47,6 +48,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Labyrinthe");
 	sf::View MyView = window.getDefaultView();
 
+	//Variables pour le mouvement souris + zoom
 	sf::Vector2f oldPos;
 	bool moving = false;
 	float zoom = 1;
@@ -134,8 +136,7 @@ int main()
 		if (!labActif.getFinRecherche())
 		{
 			//Si on n'est pas arrivés à la fin et qu'on est pas au départ ou qu'on a jamais bougé
-			if (!labActif.arrived(robActif.top()) &&
-				(robActif.top() != labActif.getPosDepart() || robActif.nextMove().x() == NULL))
+			if (!labActif.arrived(robActif.top()))
 			{
 				//Vérifie si on peut bouger et où on peut bouger si oui
 				if (labActif.canMove(robActif.top(), robActif.nextMove()))
@@ -145,6 +146,13 @@ int main()
 
 					//Bouge vers le nouvel emplacement
 					robActif.push(robActif.nextMove());
+				}
+
+				//Si on est de retour au début
+				else if (robActif.top() == labActif.getPosDepart())
+				{
+					cout << "Aucune solution" << endl;
+					labActif.getFinRecherche() = true;
 				}
 
 				//Si on ne peut pas bouger
@@ -161,19 +169,13 @@ int main()
 				}
 			}
 
-			//Si on est de retour au début
-			else if (robActif.top() == labActif.getPosDepart())
-			{
-				cout << "Aucune solution" << endl;
-				labActif.getFinRecherche() = true;
-			}
-
 			//Si on est à la fin
 			else
 			{
 				cout << "Solution trouvee" << endl;
 				labActif.getFinRecherche() = true;
 
+				//Dépile la pile et inscrit les résultats dans la map
 				while (robActif.size() > 1)
 				{
 					labActif.getMap().at(robActif.top().x(), robActif.top().y()) = 'T';
@@ -195,10 +197,10 @@ int main()
 			for (int j = 0; j < labActif.getMap().getNbCol(); j++)
 			{
 				//Emplacement de la fenêtre qui va être modifié
-				spriteMap.setPosition(i * 32, j * 32);
+				spriteMap.setPosition(j * 32, i * 32);
 
 				//Si c'est un mur dans la carte
-				if (labActif.getMap()[i][j] == '1')
+				if (labActif.getMap().at(i, j) == '1')
 				{
 					//Place la texture sur l'emplacement du mur
 					rectSourceMap.left = 1;
@@ -206,21 +208,21 @@ int main()
 				}
 
 				//Si c'est vide
-				else if (labActif.getMap()[i][j] == '0')
+				else if (labActif.getMap().at(i, j) == '0')
 				{
 					//Place la texture sur l'emplacement du plancher
 					rectSourceMap.left = 0;
 					rectSourceMap.top = 0;
 				}
 
-				else if (labActif.getMap()[i][j] == 'V')
+				else if (labActif.getMap().at(i, j) == 'V')
 				{
 					//Place la texture sur l'emplacement de la vitre
 					rectSourceMap.left = 5;
 					rectSourceMap.top = 0;
 				}
 
-				else if (labActif.getMap()[i][j] == 'T')
+				else if (labActif.getMap().at(i, j) == 'T')
 				{
 					//Place la texture sur l'emplacement de la vitre
 					rectSourceMap.left = 1;
@@ -239,14 +241,14 @@ int main()
 		}
 
 		//Afficher icone de depart du labyrinthe
-		spriteMap.setPosition(labActif.getPosDepart().x() * 32, labActif.getPosDepart().y() * 32);
+		spriteMap.setPosition(labActif.getPosDepart().y() * 32, labActif.getPosDepart().x() * 32);
 		rectSourceMap.left = 3 * 32;
 		rectSourceMap.top = 0;
 		spriteMap.setTextureRect(rectSourceMap);
 		window.draw(spriteMap);
 
 		//Afficher icone d'arrivée du labyrinthe
-		spriteMap.setPosition(labActif.getPosArriver().x() * 32, labActif.getPosArriver().y() * 32);
+		spriteMap.setPosition(labActif.getPosArriver().y() * 32, labActif.getPosArriver().x() * 32);
 		rectSourceMap.left = 0;
 		rectSourceMap.top = 1 * 32;
 		spriteMap.setTextureRect(rectSourceMap);
@@ -255,7 +257,7 @@ int main()
 		if (!labActif.getFinRecherche())
 		{
 			//Affiche le robot
-			spriteMap.setPosition(robActif.top().x() * 32, robActif.top().y() * 32);
+			spriteMap.setPosition(robActif.top().y() * 32, robActif.top().x() * 32);
 			rectSourceMap.left = 7 * 32;
 			rectSourceMap.top = 0;
 			spriteMap.setTextureRect(rectSourceMap);
@@ -264,9 +266,6 @@ int main()
 
 		//Rafraîchit l'écran avec les nouvelles modifications
 		window.display();
-
-		//Vitesse a laquelle la solution du labyrinthe est executer
-		//sf::sleep(sf::milliseconds(50));
 	}
 
 	return EXIT_SUCCESS;
